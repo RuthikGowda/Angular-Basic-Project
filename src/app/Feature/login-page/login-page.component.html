@@ -1,0 +1,137 @@
+<section class="vh-150 container" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                <form (ngSubmit)="LoginSubmit()" #LoginForm="ngForm" class="form">
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <i class="fas fa-cubes fa-2x me-3 h1" style="color: #406864;">{{ 'Log in Page' |
+                                            titlecase }} </i>
+                                        <span class="h1 fw-bold mb-0"></span>
+                                    </div>
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account
+                                    </h5>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label"> Email Address</label>
+                                        <input class="form-control form-control-lg" name="email" required email
+                                            #email="ngModel" [(ngModel)]="userCred.email"
+                                            placeholder="Enter Username or Email id" Autocomplete="off" />
+                                        <div class="text-danger"
+                                            *ngIf="email.hasError('required') && (email.dirty || email.touched)">
+                                            Email is required .
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="email.hasError('email') && (email.dirty || email.touched)">
+                                            Please enter a valid email address.
+                                        </div>
+                                    </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <label class="form-label"> Password</label>
+                                        <input type="password" class="form-control form-control-lg" name="password"
+                                            #password="ngModel" required minlength="8" maxlength="20"
+                                            [(ngModel)]="userCred.password" placeholder="Enter Password" />
+                                        <div class="text-danger"
+                                            *ngIf="password.hasError('required') && (password.dirty || password.touched)">
+                                            Password is required.
+                                        </div>
+                                        <div class="text-danger"
+                                            *ngIf="password.hasError('minlength') || password.hasError('maxlength')  && (password.dirty || password.touched)">
+                                            Password must be between 8 and 20 characters long.
+                                        </div>
+                                    </div>
+                                    <div class="pt-1 mb-4">
+                                        <button data-mdb-button-init data-mdb-ripple-init [disabled]="!LoginForm.valid"
+                                            class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                                    </div>
+                                    <div class="alert alert-primary" role="alert" *ngIf="loginAlert">
+                                        Link has been sent to your Registered Email. Click here for 
+                                        <a [href]="passwordLink" class="alert-link">Reset Password Link</a>.
+                                         
+                                    </div>
+
+                                    <a class="small text-muted" href="#" data-bs-toggle="modal"
+                                        data-bs-target="#passwordResetMpdal">Forgot password?</a>
+                                    <p class="mb-5 pb-lg-2 d-flex" style="color: #393f81;">
+                                        Don't you have an account? &nbsp;
+                                        <a class="icon-link icon-link-hover " routerLink="/Register"> Register Here
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                            </svg>
+                                        </a>
+                                    </p>
+                                    <a href="#!" class="small text-muted">Terms of use.</a>
+                                    <a href="#!" class="small text-muted">Privacy policy</a>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Password Reset -->
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="passwordResetMpdal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="passwordResetMpdalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 300px;">
+            <div class="modal-content text-center">
+                <div class="modal-header h5 text-white bg-primary d-flex justify-content-between align-items-center">
+                    <div class="mx-auto">
+                        Password Reset
+                    </div>
+                    <button type="button" class="btn-close btn-sm text-muted ms-2" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-5">
+                    <p class="py-2">
+                        Enter your email address and we'll send you an email with instructions to reset your
+                        password.
+                    </p>
+                    <form>
+                        <div data-mdb-input-init class="form-outline my-1">
+                            <label class="form-label">Email input</label>
+                            <input type="email" name="emailforgot" [formControl]="emailforgot" class="form-control" />
+                            <span class="text-danger small "
+                                *ngIf="emailforgot.hasError('required') && (emailforgot.dirty || emailforgot.touched)">
+                                Email is required.
+                            </span>
+                            <span class="text-danger small"
+                                *ngIf="emailforgot.hasError('email') && (emailforgot.dirty || emailforgot.touched)">
+                                Not a Valid Email.
+                            </span>
+                            <br />
+                            <span class="text-danger small" *ngIf="resetPasswordError"
+                                [innerHTML]="resetPasswordError"></span>
+                        </div>
+                        <button type="button" data-mdb-ripple-init (click)="resetPassword()" *ngIf="!isLoading"
+                            class="btn btn-outline-dark w-75 mt-3 " [disabled]="emailforgot.invalid">Send
+                            Reset Link</button>
+                        <div class="spinner-grow" role="status" *ngIf="isLoading">
+                            <span class="sr-only"> </span>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a class="" href="#">Login</a>
+                            <a class="" href="#">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
