@@ -26,7 +26,7 @@
                                             placeholder="Enter Username or Email id" Autocomplete="off" />
                                         <div class="text-danger"
                                             *ngIf="email.hasError('required') && (email.dirty || email.touched)">
-                                            Email is required .
+                                            Email is required.
                                         </div>
                                         <div class="text-danger"
                                             *ngIf="email.hasError('email') && (email.dirty || email.touched)">
