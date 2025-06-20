@@ -34,6 +34,9 @@
                                         <input class="form-control form-control-lg" name="Email"
                                             [(ngModel)]="user.email" required #email="ngModel" Autocomplete="off"
                                             placeholder="Enter Username or Email id" />
+                                            <div class="text-danger"
+                                            *ngIf="email.hasError('required') && (email.dirty || email.touched)">
+                                            Email is required.</div>
                                         <div class="text-danger"
                                             *ngIf="email.invalid && (email.dirty || email.touched)"> Email is required
                                             and must be a valid email address.</div>
