@@ -32,13 +32,13 @@
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label">Email Address</label>
                                         <input class="form-control form-control-lg" name="Email"
-                                            [(ngModel)]="user.email" required #email="ngModel" Autocomplete="off"
+                                            [(ngModel)]="user.email" required email #email="ngModel" Autocomplete="off"
                                             placeholder="Enter Username or Email id" />
                                             <div class="text-danger"
                                             *ngIf="email.hasError('required') && (email.dirty || email.touched)">
                                             Email is required.</div>
                                         <div class="text-danger"
-                                            *ngIf="email.invalid && (email.dirty || email.touched)"> Email is required
+                                            *ngIf="email.hasError('email') && (email.dirty || email.touched)"> Email is required
                                             and must be a valid email address.</div>
 
                                     </div>
