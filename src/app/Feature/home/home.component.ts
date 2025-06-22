@@ -1,19 +1,39 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, effect, computed } from '@angular/core';
 import Swal from 'sweetalert2';
 import { of, Subscription, interval, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-
+import { FormsModule } from '@angular/forms';
+ 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [ FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
+onCityChange($event: Event) {
+  this.selectedCitySignal.set(String($event));
+console.log('City changed:', $event);
+}
+ 
+ 
   data$ = of('John Doe', 30, 'Software Engineer');
   private networkAlertShown = false;
 
   nameArray$ = from(['John', 'Jane', 'Doe']);
+
+cityName = signal(['Bangalore', 'Chennai', 'Delhi', 'Mumbai', 'Hyderabad']);
+
+selectedCitySignal  =signal<string>('Select one');
+selectedCity: string = 'Select one';
+constructor(){
+effect(() => {
+  console.log('In constructor Selected City:', this.selectedCitySignal());
+});
+
+}
+
+cityWithdata = computed(() => this.selectedCitySignal() + ' selected');
 
   //data : string[] = this.nameArray.map(name=>name.toUpperCase());
 
