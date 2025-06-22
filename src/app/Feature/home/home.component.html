@@ -5,7 +5,7 @@
     <button class="btn btn-primary me-auto" (click)="showNetworkDownAlert()">showNetworkDownAlert</button>
     <button class="btn btn-primary me-auto" (click)="closeNetworkDownAlert()">closeNetworkDownAlert</button>
 
-     
+
 
     <button class="btn btn-primary me-auto" (click)="showAvatar()">show Avatar</button>
 </div>
@@ -78,4 +78,50 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <div class="">
+                    <h2>with Signals</h2>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Select</label>
+                       <select class="form-select form-select-lg" name="city" [(ngModel)]="selectedCity" >
+                        <option selected disabled>Select one</option>
+                        <option value="New York">New York</option>
+                        <option value="Los Angeles">Los Angeles</option>
+
+                       </select>
+
+                       {{selectedCity}}
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-1 d-flex align-items-center justify-content-center">
+                <div style="border-left:1px solid #ccc; height:100%;"></div>
+            </div> -->
+            <div class="col-5">
+                <div class="">
+                    <h2>without Signals</h2>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Select</label>
+                        <select class="form-select form-select-lg"   
+                        (ngModelChange)="onCityChange($event)"
+                        [(ngModel)]="selectedCitySignal" 
+                        name="city" id="city">
+                            <option disabled selected>Select one</option>
+                            @for (item of cityName(); track $index) {
+                                <option [value]="item">{{item}}</option>
+                            }
+                             
+                        </select>
+                        {{selectedCitySignal()}}
+                        <br/>
+
+                        {{cityWithdata()}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
