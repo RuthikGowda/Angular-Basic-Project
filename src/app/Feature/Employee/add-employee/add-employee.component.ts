@@ -4,7 +4,7 @@ import { IPersonInfo } from '../../../Model/iuser-cred';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { ModifyEmployeeComponent } from '../modify-employee/modify-employee.component';
 import { EmpServiceService } from '../../../Service/emp-service.service';
-import { catchError, EMPTY, finalize, tap } from 'rxjs';
+import { catchError, delay, EMPTY, finalize, of, tap } from 'rxjs';
 import { SweetAlertzService } from '../../../Service/sweet-alertz.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.empSrv.refreshEmpData();
     this.swtAlrtzSrv.SuccessTopEnd('Employee data refreshed successfully!');
+      
   }
 
   empSrv = inject(EmpServiceService);
@@ -96,6 +97,7 @@ export class AddEmployeeComponent implements OnInit {
             this.employeeData.push({ ...employee, id: Math.floor((Math.random() * 100) + 1) });
           }
           this.swtAlrtzSrv.ApiError();
+          this.modifyEmployeeComponent.empForm.reset();
           // Optionally handle error UI here.
           return EMPTY;
         })

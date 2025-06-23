@@ -57,3 +57,31 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+## progresive Bar
+step 1: npm install @ngx-loading-bar/core @ngx-loading-bar/router @ngx-loading-bar/http-client
+
+step 2: Import in app.module.ts :
+        
+        import { LoadingBarModule } from '@ngx-loading-bar/core';
+        import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+        import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+
+
+        @NgModule({
+                 imports: [
+                    LoadingBarModule,
+                    LoadingBarRouterModule , LoadingBarHttpClientModule
+                     ]
+            })
+        export class AppModule {}
+
+Step 3: Add the progress bar to app.component.html
+
+
+        <ngx-loading-bar color="#ff0000" height="3px"></ngx-loading-bar>
+            <router-outlet></router-outlet>
+
+
+
