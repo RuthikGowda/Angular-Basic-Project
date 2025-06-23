@@ -11,7 +11,9 @@ import { PasswrdRes } from '../Model/passwrd-res';
 })
 export class AuthService {
   response!: Observable<any>;
-  private loggedIn = new BehaviorSubject<boolean>(!!sessionStorage.getItem('user'));
+  private loggedIn = new BehaviorSubject<boolean>(
+    !!sessionStorage.getItem('user')
+  );
   loggedIn$ = this.loggedIn.asObservable();
   headers = {
     'Content-Type': 'application/json',
@@ -23,7 +25,7 @@ export class AuthService {
     console.log('Logged in status set to:', value);
     if (value) {
       sessionStorage.setItem('user', 'true');
-     // this.setLoggedIn(true);
+      // this.setLoggedIn(true);
     } else {
       sessionStorage.removeItem('user');
     }
@@ -59,10 +61,13 @@ export class AuthService {
     );
   }
 
-  resetPassword(email :string): Observable<PasswrdRes>{
-    return this.http.get<PasswrdRes>(environment.ASPNET_API_URL +'userPasswordReset',{
-      headers:this.headers,
-      params: {emailId :email}
-    });
-   }
+  resetPassword(email: string): Observable<PasswrdRes> {
+    return this.http.get<PasswrdRes>(
+      environment.ASPNET_API_URL + 'userPasswordReset',
+      {
+        headers: this.headers,
+        params: { emailId: email },
+      }
+    );
+  }
 }
