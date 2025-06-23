@@ -58,6 +58,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   onEmployeeSelect(_employee: IPersonInfo) {
+    
     this.empSrv.editEmp(_employee);
     console.log('Employee selected in Parent:', _employee);
     this.swtAlrtzSrv.SuccessTopEnd(

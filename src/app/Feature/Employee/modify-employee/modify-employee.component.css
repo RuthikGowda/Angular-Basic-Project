@@ -1,0 +1,8 @@
+ .group:hover .add-new-text {
+                opacity: 1 !important;
+                width: auto !important;
+            }
+            .group .add-new-text {
+                opacity: 0;
+                width: 0;
+            }

@@ -1,6 +1,16 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="empForm">
     <div class="row">
-
+        <div class="col-12 text-end p-0 pe-3">
+            <button type="button" (click)="addNewEmployee()" class="btn btn-link fw-bold fs-4 text-primary position-relative d-inline-flex align-items-center group" style="overflow:hidden; transition:width 0.3s;">
+                <i class="bi bi-person-add fs-4"></i>
+                <span
+                    class="add-new-text ms-2 px-2 py-1 rounded  shadow-sm fs-6"
+                    style="white-space:nowrap; opacity:0; width:0; transition:opacity 0.3s, width 0.3s; display:inline-block;">
+                    Add New
+                </span>
+            </button>
+        </div>
+         
         <div class="col-6 mb-2">
             <label for="firstName" class="form-label fw-semibold">First Name</label>
             <input type="text" id="firstName" formControlName="firstName" class="form-control">
@@ -68,15 +78,14 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="col">
-            <button type="submit" class="btn btn-primary mt-2">Save</button>
+ 
+        <div class="col  mt-2">
+            <button type="submit"   class="btn btn-outline-success"> {{submitTxt$ |async }}  </button> 
         </div>
         <div class="col mt-2">
-            <button type="reset" class="btn btn-primary">
+            <button type="reset" class="btn btn-outline-secondary">
                 Reset
             </button>
-        </div> 
+        </div>
     </div>
 </form>

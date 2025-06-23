@@ -10,14 +10,21 @@ import { SweetAlertzService } from './sweet-alertz.service';
   providedIn: 'root',
 })
 export class EmpServiceService {
+  
   http = inject(HttpClient);
   swtAlrtzSrv = inject(SweetAlertzService);
-
+ 
   private prodSubject = new BehaviorSubject<IPersonInfo | null>(null);
   readonly prod$ = this.prodSubject.asObservable();
 
   private empDataSubject = new BehaviorSubject<IPersonInfo[]>([]);
   empData$ = this.empDataSubject.asObservable();
+
+  private submitTxtSubject = new BehaviorSubject<string>('Add Employee');
+  readonly submitTxt$ = this.submitTxtSubject.asObservable();
+  updateBtnTxt() : void {
+     this.submitTxtSubject.next('Add Employee');
+  }
 
   refreshEmpData() {
     this.http
@@ -29,6 +36,7 @@ export class EmpServiceService {
       });
   }
   editEmp(_employee: IPersonInfo) {
+    this.submitTxtSubject.next('Edit');
     console.log('Editing employee in Service:', _employee);
     this.prodSubject.next(_employee); // Update the BehaviorSubject with the selected employee
   }
