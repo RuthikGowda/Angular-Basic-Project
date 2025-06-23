@@ -96,7 +96,7 @@ export class AddEmployeeComponent implements OnInit {
             this.employeeData.push({ ...employee, id: Math.floor((Math.random() * 100) + 1) });
           }
           this.swtAlrtzSrv.ApiError();
-          // Optionally handle error UI here
+          // Optionally handle error UI here.
           return EMPTY;
         })
       )
