@@ -36,7 +36,7 @@ export class EmpServiceService {
       });
   }
   editEmp(_employee: IPersonInfo) {
-    this.submitTxtSubject.next('Edit');
+    this.submitTxtSubject.next('Update');
     console.log('Editing employee in Service:', _employee);
     this.prodSubject.next(_employee); // Update the BehaviorSubject with the selected employee
   }
