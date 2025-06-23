@@ -20,6 +20,14 @@ export class ModifyEmployeeComponent implements OnInit {
   fb = inject(FormBuilder);
   empSrv = inject(EmpServiceService);
   swtAlrtzSrv = inject(SweetAlertzService);
+ 
+
+  readonly submitTxt$ = this.empSrv.submitTxt$;
+
+  addNewEmployee() {
+    this.empSrv.updateBtnTxt();
+    this.empForm.reset();
+  }
 
   @Output() employeeAdd = new EventEmitter<any>();
 
