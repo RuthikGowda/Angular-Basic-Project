@@ -6,24 +6,27 @@ export interface IUserCred {
 }
 
 export interface IPersonInfo{
+    id :number;
     firstName: string;
     lastName: string;
-    dateOfBirth: Date; // Use ISO format for date
-
+    dateOfBirth?: string ; // Use ISO format for date, nullable
+    email:string;
     phone: IPhone[];
-    address: IAddress;  
+    address: IAddress[];  
 }
 
 export interface IPhone{
+    id:number;
     phoneNumber: string;
-    phoneType: string; // e.g., 'Mobile', 'Home', 'Work'
+    phoneNumberType: string; // e.g., 'Mobile', 'Home', 'Work'
 }
 
 export interface IAddress{ 
+    id :number;
     addressType: string; // e.g., 'Home', 'Work'
     street: string;
     city: string;
     state: string;
-    zipCode: string;
+    PostalCode: string;
 
 }

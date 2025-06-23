@@ -1,0 +1,82 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="empForm">
+    <div class="row">
+
+        <div class="col-6 mb-2">
+            <label for="firstName" class="form-label fw-semibold">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" class="form-control">
+        </div>
+        <div class="col-6 mb-2">
+            <label for="lastName" class="form-label fw-semibold">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" class="form-control">
+        </div>
+        <div class="col-5 mb-2">
+            <label for="dateOfBirth" class="form-label fw-semibold  ">Date of Birth</label>
+            <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-control">
+        </div>
+        <div class="col-7 mb-2">
+            <label for="email" class="form-label fw-semibold  ">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control">
+        </div>
+
+
+        <div class="p-3 mb-3 bg-white border rounded">
+            <div class="row" formArrayName="phone">
+                <caption class="fw-semibold mb-2 form-label d-flex">Phone info</caption>
+                <div *ngFor="let item of empForm.controls.phone.controls; let i = index" [formGroupName]="i"
+                    class="row mb-2">
+                    <div class="col-7">
+                        <input type="number" id="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber"
+                            class="form-control">
+                    </div>
+                    <div class="col-5">
+                        <select name="phoneType" class="form-select" formControlName="phoneNumberType">
+                            <option value="" disabled>Type</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="home">Home</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-3 mb-3 bg-white border rounded">
+            <div class="row" formArrayName="address">
+                <caption class="fw-semibold mb-2">Address</caption>
+                <div *ngFor="let addr of empForm.controls.address.controls; let i = index" [formGroupName]="i"
+                    class="row">
+                    <div class="col-6 mb-2">
+                        <input type="text" id="street" placeholder="Street" formControlName="street"
+                            class="form-control">
+                    </div>
+                    <div class="col-6 mb-2">
+                        <input type="text" id="city" placeholder="City" formControlName="city" class="form-control">
+                    </div>
+                    <div class="col-8 mb-2">
+                        <input type="text" id="state" placeholder="State" formControlName="state" class="form-control">
+                    </div>
+                    <div class="col-4 mb-2">
+                        <input type="text" id="zipCode" placeholder="Zip Code" formControlName="PostalCode"
+                            class="form-control">
+                    </div>
+                    <div class="col-4 mb-2">
+                        <select id="addressType" class="form-select" formControlName="addressType">
+                            <option disabled value="">Type</option>
+                            <option value="Home">Home</option>
+                            <option value="Work">Work</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <button type="submit" class="btn btn-primary mt-2">Save</button>
+        </div>
+        <div class="col mt-2">
+            <button type="reset" class="btn btn-primary">
+                Reset
+            </button>
+        </div> 
+    </div>
+</form>

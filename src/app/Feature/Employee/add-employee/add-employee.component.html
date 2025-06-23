@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="row g-2 mt-4">
+        <div class="col-8 shadow p-3 mb-5 rounded text-center">
+            <h3>View Employee</h3>
+            <div class="d-flex muted">
+                Employee Records<span class="badge bg-primary">{{ totalEmployee }}</span>
+            </div>
+
+
+
+            <table class="table table-striped table-hover  align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th [width]="1">sl#</th>
+                        <th>Full Name</th>
+                        <th>DOB</th>
+                        <th>Email</th>
+                        <th>Phone #</th>
+                        <th>City</th>
+                        <th [width]="1"></th>
+
+
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+
+                    <ng-container *ngFor="let employee of empData$ | async; let i = index">
+                        <tr style="cursor:pointer;">
+                            <td [width]="1">{{ i + 1 }}</td>
+                            <td (click)="onEmployeeSelect(employee)">{{ employee.firstName + ' ' + employee.lastName }}
+                            </td>
+                            <td (click)="onEmployeeSelect(employee)">{{ employee.dateOfBirth | date }}</td>
+                            <td (click)="onEmployeeSelect(employee)">{{ employee.email }}</td>
+                            <td (click)="onEmployeeSelect(employee)">{{ employee.phone[0] ?
+                                employee.phone[0].phoneNumber : '' }}</td>
+                            <td (click)="onEmployeeSelect(employee)">{{ employee.address[0] ? employee.address[0].city :
+                                '' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-link p-0 delete-btn custom-zoom-effect"
+                                    (click)="onDeleteEmployee(employee); $event.stopPropagation();" aria-label="Delete">
+                                    <i class="bi bi-trash text-danger fw-bold"></i>
+                                </button>
+
+
+                            </td>
+                        </tr>
+
+                    </ng-container>
+                     <tr>
+                        <td colspan="7" class="text-start fw-bold">Static Records</td>
+                    </tr>
+                    <ng-container *ngIf="employeeData.length > 0; else noData">
+                        <ng-container *ngFor="let employee of employeeData; let i = index">
+                            <tr style="cursor:pointer;" (click)="onEmployeeSelectStatic(employee)">
+                                <td [width]="1">{{ i + 1 }}</td>
+                                <td>{{ employee.firstName + ' ' + employee.lastName }}</td>
+                                <td>{{ employee.dateOfBirth | date }}</td>
+                                <td>{{ employee.email }}</td>
+                                <td>{{ employee.phone[0].phoneNumber }}</td>
+                                <td>{{ employee.address[0].city }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-link p-0 delete-btn custom-zoom-effect"
+                                        (click)="onDeleteStaticEmployee(employee); $event.stopPropagation();"
+                                        aria-label="Delete">
+                                        <i class="bi bi-trash text-danger fw-bold"></i>
+                                    </button>
+
+
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #noData>
+                        <tr>
+                            <td colspan="6" class="text-center">No Records Found</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+
+        </div>
+
+        <div class="col-4 shadow p-3 mb-5 bg-body rounded text-center">
+            <h3>Add/Edit Employee</h3>
+            <app-modify-employee (employeeAdd)="onEmployeeAdd($event)"></app-modify-employee>
+        </div>
+    </div>
