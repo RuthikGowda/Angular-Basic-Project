@@ -93,10 +93,10 @@ export class AddEmployeeComponent implements OnInit {
           if (index !== -1) {
             this.employeeData[index] = { ...employee };
           } else {
-            this.employeeData.push({ ...employee, id: Math.random() });
+            this.employeeData.push({ ...employee, id: Math.floor((Math.random() * 100) + 1) });
           }
           this.swtAlrtzSrv.ApiError();
-          // Optionally handle error UI here
+          // Optionally handle error UI here.
           return EMPTY;
         })
       )
@@ -143,7 +143,7 @@ export class AddEmployeeComponent implements OnInit {
 
   employeeData: IPersonInfo[] = [
     {
-      id: 0,
+      id: 1,
       firstName: 'Ruthik',
       lastName: 'Yogesh',
       email: 'ruthik.yogesh@example.com',
@@ -167,7 +167,7 @@ export class AddEmployeeComponent implements OnInit {
       ],
     },
     {
-      id: 1,
+      id: 2,
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
