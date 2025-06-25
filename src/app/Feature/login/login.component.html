@@ -42,8 +42,8 @@
 
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label">Password</label>
-                                        <input type="password" class="form-control form-control-lg" name="Password"
-                                            #password="ngModel" [(ngModel)]="user.password" required minlength="8"
+                                        <input type="password" class="form-control form-control-lg" name="Password" autocomplete="off"
+                                            #password="ngModel" [(ngModel)]="user.password" required minlength="8"  
                                             maxlength="14" placeholder="Enter Password" />
                                         <div class="text-danger"
                                             *ngIf="password.hasError('required') && (password.dirty || password.touched)">
@@ -58,9 +58,9 @@
                                     </div>
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         <label class="form-label">Confirm your Password</label>
-                                        <input type="password" class="form-control form-control-lg"
+                                        <input type="password" class="form-control form-control-lg" autocomplete="off"
                                             name="confirmPassword" #confirmPassword="ngModel"
-                                            [(ngModel)]="user.confirmPassword" required minlength="8" maxlength="14"
+                                            [(ngModel)]="user.confirmPassword" required minlength="8" maxlength="14"  
                                             placeholder="Confirm your Password" />
                                         <div class="text-danger"
                                             *ngIf="confirmPassword.hasError('required') && (confirmPassword.dirty || confirmPassword.touched)">

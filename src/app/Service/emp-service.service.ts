@@ -26,14 +26,23 @@ export class EmpServiceService {
      this.submitTxtSubject.next('Add Employee');
   }
 
-  refreshEmpData() {
-    this.http
-      .get<IPersonInfo[]>(environment.ASPNET_API_URL + 'getAllEmployeeData', {
-        headers: myConstants.headers,
-      })
-      .subscribe((data) => {
-        this.empDataSubject.next(data);
-      });
+ async refreshEmpData(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.http
+        .get<IPersonInfo[]>(environment.ASPNET_API_URL + 'getAllEmployeeData', {
+          headers: myConstants.headers,
+        })
+        .subscribe({
+          next: (data) => {
+            this.empDataSubject.next(data);
+            resolve(true);
+          },
+          error: (err) => {
+            console.log(err);
+            resolve(false);
+          }
+        });
+    });
   }
   editEmp(_employee: IPersonInfo) {
     this.submitTxtSubject.next('Update');
@@ -42,8 +51,7 @@ export class EmpServiceService {
   }
 
   addData(employee: IPersonInfo): Observable<Response> {
-    console.log('Adding employee to API:', JSON.stringify(employee));
-
+    console.log('Adding employee to API:', JSON.stringify(employee)); 
     return this.http.post<Response>(
       environment.ASPNET_API_URL + 'updateUserProfile',
       employee,
