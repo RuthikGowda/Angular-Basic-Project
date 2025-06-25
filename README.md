@@ -84,4 +84,5 @@ Step 3: Add the progress bar to app.component.html
             <router-outlet></router-outlet>
 
 
-
+## Phone Number Input with country code (ngx-intl-tel-input)
+    https://www.npmjs.com/package/ngx-intl-tel-input

@@ -47,29 +47,31 @@ export class ModifyEmployeeComponent implements OnInit {
   empForm = this.fb.nonNullable.group({
     id: [0],
     firstName: ['', Validators.required],
-    lastName: [''],
-    dateOfBirth: [''],
+    lastName: ['',Validators.required],
+    dateOfBirth: ['',Validators.required],
     email: ['', [Validators.required, Validators.email]],
     phone: this.fb.nonNullable.array([
       this.fb.nonNullable.group({
         id: [0],
-        phoneNumber: ['', Validators.required],
-        phoneNumberType: [''],
+        phoneNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+        phoneNumberType: ['',Validators.required],
       }),
     ]),
     address: this.fb.nonNullable.array([
       this.fb.nonNullable.group({
         id: [0],
-        street: [''],
-        city: [''],
-        state: [''],
-        PostalCode: [''],
-        addressType: [''],
+        street: ['',Validators.required],
+        city: ['',Validators.required],
+        state: ['',Validators.required],
+        postalCode: ['',Validators.required],
+        addressType: ['',Validators.required],
       }),
     ]),
   });
 
   onSubmit() {
+    if(this.empForm.invalid) 
+      return alert('Please fill out all required fields correctly before submitting the form.');
     this.swtAlrtzSrv.showLoading('Submitting form');
     debugger;
     console.log('Form submitted:', this.empForm.value);

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IPersonInfo } from '../../../Model/iuser-cred';
 import { AsyncPipe, CommonModule } from '@angular/common';
@@ -14,18 +14,48 @@ import { SweetAlertzService } from '../../../Service/sweet-alertz.service';
   styleUrl: './add-employee.component.css',
 })
 export class AddEmployeeComponent implements OnInit {
+
+
+  cdr = inject(ChangeDetectorRef);
+  empSrv = inject(EmpServiceService);
+ swtAlrtzSrv = inject(SweetAlertzService);
   totalEmployee: number = 0;
   @ViewChild(ModifyEmployeeComponent)
   modifyEmployeeComponent!: ModifyEmployeeComponent;
 
-  ngOnInit(): void {
-    this.empSrv.refreshEmpData();
-    this.swtAlrtzSrv.SuccessTopEnd('Employee data refreshed successfully!');
-      
-  }
+ngOnInit() {
+ this.empTableRefresh();
+}
 
-  empSrv = inject(EmpServiceService);
-  swtAlrtzSrv = inject(SweetAlertzService);
+empTableRefresh():void{
+ this.empSrv.refreshEmpData().then((data) => {
+    console.log('In refreshin record',data);
+    if (data === true) {
+      this.swtAlrtzSrv.SuccessTopEnd('Employee data refreshed successfully!');
+    }
+    else{ 
+      this.swtAlrtzSrv.ErrorTopEnd('Error while refreshing the Employee table'); 
+    }
+  });  
+}
+
+ empData$ = this.empSrv.empData$.pipe(
+    tap((data) => {
+      //this.totalEmployee = data.length + this.employeeData.length;
+      console.log('fetching employee data:', data);
+      this.totalEmployee = data.length + this.employeeData.length;
+      this.cdr.detectChanges();
+    }),
+    catchError((error) => {
+      console.error('Error fetching employee data:', error); 
+      return EMPTY;
+    }),
+    finalize(() => {
+      // Any cleanup logic can go here if needed
+    })
+  );
+
+ 
 
   async onDeleteEmployee(deleteEmp: IPersonInfo) {
     console.log('Delete Employee:', deleteEmp);
@@ -46,12 +76,10 @@ export class AddEmployeeComponent implements OnInit {
             this.empSrv.refreshEmpData();
           }),
           catchError((error) => {
-            console.error('Error deleting employee:', error);
-            this.swtAlrtzSrv.ApiError();
-            return EMPTY;
-          }),
-          finalize(() => {
-            // Any final cleanup if needed
+        console.error('Error deleting employee:', error);
+        this.swtAlrtzSrv.ApiError();
+        this.empTableRefresh();
+        return EMPTY;
           })
         )
         .subscribe();
@@ -67,16 +95,7 @@ export class AddEmployeeComponent implements OnInit {
     );
   }
 
-  empData$ = this.empSrv.empData$.pipe(
-    tap((data) => {
-      this.totalEmployee = data.length + this.employeeData.length;
-      console.log('fetching employee data:', data);
-    }),
-    catchError((error) => {
-      console.error('Error fetching employee data:', error);
-      return EMPTY;
-    })
-  );
+ 
 
   onEmployeeAdd(employee: IPersonInfo) {
     this.empSrv
@@ -98,6 +117,10 @@ export class AddEmployeeComponent implements OnInit {
           }
           this.swtAlrtzSrv.ApiError();
           this.modifyEmployeeComponent.empForm.reset();
+          this.empTableRefresh();
+          if (this.modifyEmployeeComponent) {
+            this.modifyEmployeeComponent.empForm.reset();
+          }
           // Optionally handle error UI here.
           return EMPTY;
         })
@@ -106,13 +129,15 @@ export class AddEmployeeComponent implements OnInit {
         next: (response) => {
           // this.swtAlrtzSrv.showLoading("form submitted successfully. Refreshing employee data...");
           console.log('Employee added successfully:', response);
+          this.swtAlrtzSrv.closeLoading();
+          this.swtAlrtzSrv.SuccessTopEnd('Employee added successfully!');
           // Refresh the employee data after successful add
-          this.empSrv.refreshEmpData();
+          //this.empSrv.refreshEmpData();
+          this.empTableRefresh();
           if (this.modifyEmployeeComponent) {
             this.modifyEmployeeComponent.empForm.reset();
           }
-          this.swtAlrtzSrv.closeLoading();
-          this.swtAlrtzSrv.SuccessTopEnd('Employee added successfully!');
+          
         },
       });
   }
@@ -125,6 +150,7 @@ export class AddEmployeeComponent implements OnInit {
       `Selected ${staticData.firstName} ${staticData.lastName} for editing!`
     );
   }
+
   async onDeleteStaticEmployee(deleteEMp: IPersonInfo) {
     console.log('Delete Static Employee:', deleteEMp);
     let confirmation = await this.swtAlrtzSrv.confirmDelete(
@@ -164,7 +190,7 @@ export class AddEmployeeComponent implements OnInit {
           street: '123 Main St',
           city: 'Anytown',
           state: 'CA',
-          PostalCode: '12345',
+          postalCode: '12345',
         },
       ],
     },
@@ -188,7 +214,7 @@ export class AddEmployeeComponent implements OnInit {
           street: '456 Elm St',
           city: 'Othertown',
           state: 'NY',
-          PostalCode: '67890',
+          postalCode: '67890',
         },
       ],
     },

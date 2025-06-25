@@ -13,3 +13,8 @@
   font-weight: 465;
   font-style: normal;
 }
+
+.text-danger{
+  font-size: 0.75rem;
+  display:inline-block; white-space:nowrap;
+}
