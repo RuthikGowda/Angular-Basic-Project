@@ -3,7 +3,7 @@ import { IPersonInfo } from '../Model/iuser-cred';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { myConstants } from '../staticData/myConstants';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment.production';
 import { SweetAlertzService } from './sweet-alertz.service';
 
 @Injectable({

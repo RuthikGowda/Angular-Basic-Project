@@ -36,7 +36,7 @@
     <a class="nav-link" aria-current="page" routerLink="/Profile" routerLinkActive="router-link-active active">Profile</a>
   </li>
     <li class="nav-item" *ngIf="isLoggedIn">
-    <a class="nav-link" aria-current="page" routerLink="/Profile" routerLinkActive="router-link-active active">Profile</a>
+    <button class="nav-link d-flex logout-link btn btn-link" type="button" (click)="LogOut()">Log Out</button>
   </li>
 }
 </ul>
