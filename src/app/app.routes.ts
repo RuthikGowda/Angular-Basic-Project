@@ -9,14 +9,17 @@ export const routes: Routes = [
   {
     path: 'Register',
     component: LoginComponent,
+    title: "Register"
   },
   {
     path: 'Login',
     component: LoginPageComponent,
+    title: "Login"
   },
   {
     path: 'Home',
     component: HomeComponent,
+    title: "Home"
   },
   // {
   //   path: 'manageEmployee',
@@ -28,6 +31,7 @@ export const routes: Routes = [
       import('./Feature/Employee/add-employee/add-employee.component').then(
         (c)=>c.AddEmployeeComponent
       ),
+      title:"Manage Employee",
       canActivate:[loginGuardGuard]
      
   }

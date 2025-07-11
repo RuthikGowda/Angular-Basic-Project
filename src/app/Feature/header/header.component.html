@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary nav-underline">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/Home"  routerLinkActive="router-link-active active">Home</a>
+          <a class="nav-link" aria-current="page" routerLink="/Home"  routerLinkActive="router-link-active">Dummy Home</a>
         </li>
            <li class="nav-item">
           <a class="nav-link" aria-current="page" routerLink="/manageEmployee"  routerLinkActive="router-link-active active">Employee</a>
@@ -24,16 +24,16 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           @if( !isLoggedIn ) {
   <li class="nav-item" *ngIf="!isLoggedIn">
-    <a class="nav-link" aria-current="page" routerLink="/Register" routerLinkActive="router-link-active active">Register</a>
+    <a class="nav-link" aria-current="page" routerLink="/Register" routerLinkActive="router-link-active  ">Register</a>
   </li>
   <li class="nav-item" *ngIf="!isLoggedIn">
-    <a class="nav-link" aria-current="page" routerLink="/Login" routerLinkActive="router-link-active active">Login</a>
+    <a class="nav-link" aria-current="page" routerLink="/Login" routerLinkActive="router-link-active  ">Login</a>
   </li>
 }
 
 @else {
   <li class="nav-item" *ngIf="isLoggedIn">
-    <a class="nav-link" aria-current="page" routerLink="/Profile" routerLinkActive="router-link-active active">Profile</a>
+    <a class="nav-link" aria-current="page" routerLink="/Profile" routerLinkActive="router-link-active  ">Profile</a>
   </li>
     <li class="nav-item" *ngIf="isLoggedIn">
     <button class="nav-link d-flex logout-link btn btn-link" type="button" (click)="LogOut()">Log Out</button>
