@@ -1,3 +1,4 @@
 export const environment = {
-    ASPNET_API_URL: 'http://localhost:5124/api/',
+    prod : false,
+    ASPNET_API_URL: 'https://localhost:44314/api/',
 };
