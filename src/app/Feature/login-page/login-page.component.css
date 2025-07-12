@@ -1,0 +1,12 @@
+.hover-scale {
+    transition: transform 0.2s ease-in-out;
+}
+.hover-scale:hover {
+    transform: scale(1.03);
+}
+
+input::placeholder {
+  font-size: 1rem; /* smaller font size, adjust as needed */
+  color: #999;        /* optional: lighter placeholder color */
+  opacity: 1;         /* ensures color shows consistently across browsers */
+}

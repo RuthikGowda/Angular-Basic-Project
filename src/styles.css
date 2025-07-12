@@ -15,6 +15,13 @@
 }
 
 .text-danger{
+  padding-left: 1rem;
   font-size: 0.75rem;
-  display:inline-block; white-space:nowrap;
+  display:inline-block; 
+  /* white-space:nowrap; */
+   word-break: break-word; 
+   white-space: pre-line;
+}
+.nav-link{
+  white-space:nowrap;
 }

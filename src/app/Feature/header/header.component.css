@@ -1,3 +1,56 @@
-.logout-link {
+/* .logout-link {
   white-space: nowrap;
 }
+
+
+
+ 
+.navbar-nav .nav-link:hover {
+  color: #8a6a41 !important;  
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+ 
+.input-group input:focus {
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.5);
+  border-color: #0d6efd;
+}
+
+ 
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  transition: background-color 0.3s ease;
+}
+ 
+.btn-rounded-pill {
+  border-radius: 50px !important;
+}
+
+
+ */
+
+  .active{
+  text-decoration: underline;
+  color: #5b2e99 !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar .form-control,
+  .navbar .btn {
+    width: 100%;
+  }
+
+  .navbar .navbar-nav.flex-column {
+    width: 100%;
+  }
+
+  .navbar .navbar-nav.flex-column .nav-item {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+  
+

@@ -17,6 +17,7 @@ export class SweetAlertzService {
       title: tile,
       text: text,
       icon: icon,
+       
     });
   }
 
