@@ -1,124 +1,126 @@
-<section class="vh-150 container" style="background-color: #9A616D;">
+<section class="vh-150 container-fluid" style="background-color: #9A616D;">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-10">
                 <div class="card" style="border-radius: 1rem;">
                     <div class="row g-0">
                         <div class="col-md-6 col-lg-5 d-none d-md-block">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
-                                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            <img src="https://t3.ftcdn.net/jpg/04/45/30/00/360_F_445300032_8BOeLM2RyS8hFgjPgZ8OMPXUelRCySun.jpg"
+                                alt="login form" class="img-fluid w-100 h-100 object-fit-cover"
+                                style="border-radius: 1rem 0 0 1rem;" />
                         </div>
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
                             <div class="card-body p-4 p-lg-5 text-black">
+                                <form (submit)="onSubmit()" #form="ngForm"
+                                    class="mx-auto p-5 bg-white rounded shadow-sm" style="max-width: 480px;">
 
-                                <form (submit)="onSubmit()" #form="ngForm" class="form">
-
-                                    <input type="hidden" name="returnUrl"  />
-
-                                    <!-- <div class="d-flex align-items-center mb-3  pb-1">
-                                        <i class="fas fa-cubes fa-2x h1 me-3" style="color: #406864;">Registration
-                                            Page</i>
-                                        <span class="h1 fw-bold mb-0"> </span>
-                                    </div> -->
-
-                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Create new account
+                                    <h5 class="fw-normal mb-1 pb-2 text-center text-dark"
+                                        style="letter-spacing: 1.5px; font-weight: 600;">
+                                        Create new account
                                     </h5>
 
-                                    <div class="text-body">
+                                    <div class="text-body mb-3">
                                         <div asp-validation-summary="All" class="text-danger"></div>
                                     </div>
 
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label">Email Address</label>
+                                    <div data-mdb-input-init class="form-outline mb-3">
+                                        <!-- <label class="form-label fw-semibold">Email Address</label> -->
                                         <input class="form-control form-control-lg" name="Email"
-                                            [(ngModel)]="user.email" required email #email="ngModel" Autocomplete="off"
-                                            placeholder="Enter Username or Email id" />
-                                            <div class="text-danger"
-                                            *ngIf="email.hasError('required') && (email.dirty || email.touched)">
-                                            Email is required.</div>
-                                        <div class="text-danger"
-                                            *ngIf="email.hasError('email') && (email.dirty || email.touched)">  
-                                            Must be a valid email address.</div>
-
+                                            [(ngModel)]="user.email" required email #email="ngModel" autocomplete="off"
+                                            placeholder="Email" />
+                                        <div class="text-danger small mt-1"
+                                            *ngIf="email.hasError('required') && (email.dirty || email.touched)">Email
+                                            is required.</div>
+                                        <div class="text-danger small mt-1"
+                                            *ngIf="email.hasError('email') && (email.dirty || email.touched)">Must be a
+                                            valid email address.</div>
                                     </div>
 
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label">Password</label>
-                                        <input type="password" class="form-control form-control-lg" name="Password" autocomplete="off"
-                                            #password="ngModel" [(ngModel)]="user.password" required minlength="8"  
-                                            maxlength="14" placeholder="Enter Password" />
-                                        <div class="text-danger"
+                                    <div data-mdb-input-init class="form-outline mb-3">
+                                        <!-- <label class="form-label fw-semibold">Password</label> -->
+                                        <input type="password" class="form-control form-control-lg" name="Password"
+                                            autocomplete="off" #password="ngModel" [(ngModel)]="user.password" required
+                                            minlength="8" maxlength="14" placeholder="Password" />
+                                        <div class="text-danger small mt-1"
                                             *ngIf="password.hasError('required') && (password.dirty || password.touched)">
                                             Password is required.</div>
-                                        <div class="text-danger"
+                                        <div class="text-danger small mt-1"
                                             *ngIf="password.hasError('minlength') && (password.dirty || password.touched)">
                                             Password must be at least 8 characters long.</div>
-                                        <div class="text-danger"
+                                        <div class="text-danger small mt-1"
                                             *ngIf="password.hasError('maxlength') && (password.dirty || password.touched)">
                                             Password cannot exceed 14 characters.</div>
-
                                     </div>
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <label class="form-label">Confirm your Password</label>
+
+                                    <div data-mdb-input-init class="form-outline mb-2">
+                                        <!-- <label class="form-label fw-semibold">Confirm your Password</label> -->
                                         <input type="password" class="form-control form-control-lg" autocomplete="off"
                                             name="confirmPassword" #confirmPassword="ngModel"
-                                            [(ngModel)]="user.confirmPassword" required minlength="8" maxlength="14"  
-                                            placeholder="Confirm your Password" />
-                                        <div class="text-danger"
+                                            [(ngModel)]="user.confirmPassword" required minlength="8" maxlength="14"
+                                            placeholder="Confirm Password" />
+                                        <div class="text-danger small mt-1"
                                             *ngIf="confirmPassword.hasError('required') && (confirmPassword.dirty || confirmPassword.touched)">
                                             Confirm Password is required.</div>
-                                        <div class="text-danger"
+                                        <div class="text-danger small mt-1"
                                             *ngIf="confirmPassword.value !== password.value && (confirmPassword.dirty || confirmPassword.touched)">
                                             Passwords do not match.</div>
-
                                     </div>
-                                    <div class="form-check">
+
+                                    <div class="form-check mb-2">
                                         <input class="form-check-input" type="checkbox" name="Remember"
                                             [(ngModel)]="termsChecked" #check="ngModel" requiredTrue required />
-                                        <label class="form-check-label"> Agree the Terms and conditions </label>
-                                        <div class="text-danger"
+                                        <label class="form-check-label fw-normal small text-muted">
+                                            I agree to the Terms and
+                                                Conditions 
+                                        </label>
+                                        <div class="text-danger small mt-1"
                                             *ngIf="check.invalid && (form.controls['Remember']?.dirty || form.controls['Remember']?.touched)">
-                                            You must agree to the terms.</div>
+                                            You must agree to the terms.
+                                        </div>
                                     </div>
 
 
-                                    <div class="pt-2 mb-4">
+                                    <div class="pt-2 mb-3">
                                         <button data-mdb-button-init data-mdb-ripple-init
-                                            class="btn btn-dark btn-lg btn-block" type="submit"
-                                            [disabled]="!form.valid ||   (confirmPassword.value !== password.value && (confirmPassword.dirty || confirmPassword.touched))">Register</button>
-                                    </div>
-
-                                    <div *ngIf="enableOTPbtn">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#staticBackdrop">
-                                            Submit OTP for verification.
+                                            class="btn btn-success btn-md w-100 rounded-pill shadow-sm hover-scale"
+                                            type="submit" [disabled]="
+        !form.valid ||
+        (confirmPassword.value !== password.value && (confirmPassword.dirty || confirmPassword.touched))
+      ">
+                                            Register
                                         </button>
-                                        <p class="text-muted "> Check your Registered email {{user.email}}</p>
-                                        <br />
                                     </div>
 
+                                    <!-- <div *ngIf="enableOTPbtn" class="mb-3 text-center">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop">
+                                            Submit OTP for verification
+                                        </button>
+                                        <p class="text-muted mt-2">Check your Registered email {{user.email}}</p>
+                                    </div> -->
 
-
-                                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#passwordResetMpdal">
-                                                Reset Password
-                                            </button>   -->
-                                    <div class="">
-                                        <p class="mb-5 pb-lg-2 d-flex" style="color: #393f81;">
+                                    <div class="text-center mb-3">
+                                        <p class="mb-0" style="color: #393f81;">
                                             Existing User? &nbsp;
-                                            <a class="icon-link icon-link-hover " routerLink="/Login"> Sign In
+                                            <a class="icon-link icon-link-hover fw-semibold text-primary"
+                                                routerLink="/Login">Sign In
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16"
-                                                    aria-hidden="true">
+                                                    aria-hidden="true" width="16" height="16" fill="currentColor"
+                                                    style="vertical-align: middle; margin-left: 4px;">
                                                     <path
-                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
                                                 </svg>
                                             </a>
-
                                         </p>
                                     </div>
-                                    <a href="#!" class="small text-muted">Terms of use.</a>
-                                    <a href="#!" class="small text-muted">Privacy policy</a>
+
+                                    <div class="d-flex justify-content-center gap-4 small text-muted">
+                                        <a href="#!" class="text-decoration-none">Terms of use</a>
+                                        <a href="#!" class="text-decoration-none">Privacy policy</a>
+                                    </div>
+
                                 </form>
+
 
 
                             </div>
@@ -131,7 +133,7 @@
         <!-- Button trigger modal -->
 
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <!-- <div class="modal"  #otpModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -158,9 +160,68 @@
                     </form>
                 </div>
             </div>
+        </div> -->
+
+
+<div
+  class="modal"
+  #otpModal
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-top">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-primary text-white rounded-top-4">
+        <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Verify OTP</h1>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form #Otpform="ngForm" (ngSubmit)="onOtpSubmit(Otpform)">
+        <div class="modal-body px-4">
+          <p class="mb-3 text-secondary">
+            Please enter the OTP sent to <span class="fw-semibold text-dark">{{ user.email }}</span>
+          </p>
+
+          <div class="d-flex justify-content-center">
+            <ng-otp-input
+              (onInputChange)="onOtpChange($event)"
+              [config]="{ length: 6 }"
+              name="otp"
+              [(ngModel)]="otp"
+              #otpInput="ngModel"
+            ></ng-otp-input>
+          </div>
+
+          <div
+            class="form-text text-danger text-center mt-2"
+            *ngIf="otpInput.invalid && (otpInput.dirty || otpInput.touched)"
+          >
+            OTP is required and must be 6 digits.
+          </div>
         </div>
 
-
+        <div class="modal-footer justify-content-between px-4 pb-4 pt-3">
+         
+          <button
+            type="submit"
+            class="btn btn-primary rounded-pill px-4"
+            data-bs-dismiss="modal" *ngIf="Otpform.valid"
+          >
+            Submit OTP
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
     </div>

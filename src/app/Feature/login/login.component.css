@@ -1,0 +1,47 @@
+.form {
+  background-color: #fefefe;
+  box-shadow: 0 0 15px rgb(0 0 0 / 0.1);
+}
+
+.form-label {
+  color: #34495e;
+}
+
+input.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.btn-primary {
+  background: #3498db;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #2980b9;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+a.text-primary:hover {
+  text-decoration: underline;
+}
+
+.form-check-label {
+  user-select: none;
+}
+input::placeholder {
+  font-size: 1rem; /* smaller font size, adjust as needed */
+  color: #999;        /* optional: lighter placeholder color */
+  opacity: 1;         /* ensures color shows consistently across browsers */
+}
+
+ng-otp-input {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
