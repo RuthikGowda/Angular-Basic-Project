@@ -25,7 +25,7 @@ export class LoginComponent implements AfterViewInit{
   sweetAlertzService = inject(SweetAlertzService);
 
   ngAfterViewInit(): void {
-   this.otpModalRef.nativeElement.style.display="block";
+    
   }
 
   // Define the OTP variable to hold the OTP value
