@@ -71,7 +71,7 @@ step 2: Import in app.module.ts :
 
         @NgModule({
                  imports: [
-                    LoadingBarModule,
+                 LoadingBarModule,
                     LoadingBarRouterModule , LoadingBarHttpClientModule
                      ]
             })
@@ -86,3 +86,12 @@ Step 3: Add the progress bar to app.component.html
 
 ## Phone Number Input with country code (ngx-intl-tel-input)
     https://www.npmjs.com/package/ngx-intl-tel-input
+
+## issue : when trying to push and permission issue
+step 1
+    Open Credential Manager (search in Start menu)
+    Go to Windows Credentials
+    Remove any credentials related to github.com
+
+step 2
+    try to push in terminal, it will ask to login use ur main gitub account
