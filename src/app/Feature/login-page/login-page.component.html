@@ -9,6 +9,7 @@
                                 alt="login form" class="img-fluid w-100 h-100 object-fit-cover" style="border-radius: 1rem 0 0 1rem;" />
                         </div> 
                     
+                        
 
 
                         <div class="col-md-6 col-lg-7 d-flex align-items-center">
@@ -18,6 +19,19 @@
 
                                 <form (ngSubmit)="LoginSubmit()" #LoginForm="ngForm"
                                     class="form mx-auto p-4 rounded shadow-sm bg-white" style="max-width: 420px;">
+
+                                     <!-- Alert Message -->
+                                    <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="loginAlert">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle me-2" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14z"/>
+                                            <path d="M10.97 5.97a.235.235 0 0 1 .02.022l-3.99 4.99a.75.75 0 0 1-1.08.02l-2-2a.75.75 0 1 1 1.06-1.06l1.47 1.47 3.47-4.34a.75.75 0 0 1 1.13.94z"/>
+                                        </svg>
+                                        <span>
+                                            Password reset link sent to your email.
+                                        </span>
+                                    </div>
+
+
                                     <h5 class="fw-semibold text-center mb-4" style="letter-spacing: 1px; color: #333;">
                                         Sign into your account
                                     </h5>
@@ -68,11 +82,7 @@
                                         </button>
                                     </div>
 
-                                    <!-- Alert Message -->
-                                    <div class="alert alert-primary" role="alert" *ngIf="loginAlert">
-                                        Link has been sent to your Registered Email. Click here for
-                                        <a [href]="passwordLink" class="alert-link">Reset Password Link</a>.
-                                    </div>
+                                   
 
                                     <!-- Register Link -->
                                     <p class="text-center mt-4 mb-2" style="color: #393f81;">
