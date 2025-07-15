@@ -4,3 +4,9 @@ export interface PasswrdRes {
     data?:  any;
 }
 
+export class resetpswd {
+    email:string | null='';
+    password:string | null='';
+    confirmPassword:string | null='';
+    resetId :string | null='';
+}

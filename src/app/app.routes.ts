@@ -2,9 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './Feature/login/login.component';
 import { LoginPageComponent } from './Feature/login-page/login-page.component';
 import { HomeComponent } from './Feature/home/home.component';
-import { AddEmployeeComponent } from './Feature/Employee/add-employee/add-employee.component';
 import { loginGuardGuard } from './guaurd/login-guard.guard';
-import { ResetpasswordComponent } from './Feature/resetpassword/resetpassword.component';
 import { HeaderComponent } from './Feature/header/header.component';
 
 // export const routes: Routes = [
@@ -64,7 +62,8 @@ export const routes: Routes = [
       },
       {
         path: 'resetpassword',
-        component: ResetpasswordComponent,
+        loadComponent:() =>
+        import('./Feature/resetpassword/resetpassword.component').then( (c)=>c.ResetpasswordComponent), 
         title: 'Password Reset'
       }
     ,

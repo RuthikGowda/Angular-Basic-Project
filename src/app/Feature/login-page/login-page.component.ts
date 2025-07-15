@@ -20,8 +20,7 @@ declare var window: any;
   imports: [
     FormsModule,
     CommonModule,
-    RouterLink,
-    
+    RouterLink, 
     ReactiveFormsModule,
   ],
   templateUrl: './login-page.component.html',
