@@ -67,7 +67,7 @@ empTableRefresh():void{
       console.log('Confirmed deletion for:', deleteEmp);
       debugger;
       this.empSrv
-        .deleteData(deleteEmp.id)
+        .deleteData(deleteEmp.email)
         .pipe(
           tap(() => {
             this.swtAlrtzSrv.SuccessTopEnd(
@@ -98,6 +98,7 @@ empTableRefresh():void{
  
 
   onEmployeeAdd(employee: IPersonInfo) {
+    console.info('Adding Employee:', JSON.stringify(employee));
     this.empSrv
       .addData({
         ...employee,

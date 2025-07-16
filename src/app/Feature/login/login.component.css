@@ -45,3 +45,9 @@ ng-otp-input {
   justify-content: center;
   gap: 10px;
 }
+.hover-scale {
+    transition: transform 0.2s ease-in-out;
+}
+.hover-scale:hover {
+    transform: scale(1.03);
+}
