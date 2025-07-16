@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { IPersonInfo } from '../Model/iuser-cred';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { myConstants } from '../staticData/myConstants';
 import { environment } from '../../environments/environment.production';
@@ -53,7 +53,7 @@ export class EmpServiceService {
   addData(employee: IPersonInfo): Observable<Response> {
     console.log('Adding employee to API:', JSON.stringify(employee)); 
     return this.http.post<Response>(
-      environment.ASPNET_API_URL + 'updateUserProfile',
+      environment.ASPNET_API_URL + environment.updateUserProfile,
       employee,
       {
         headers: myConstants.headers,
@@ -61,10 +61,12 @@ export class EmpServiceService {
     );
   }
 
-  deleteData(empId: number): Observable<Response> {
-    return this.http.get<Response>(`${environment.ASPNET_API_URL}deleteByID`, {
+  deleteData(email: string): Observable<Response> {
+    return this.http.get<Response>(`${environment.ASPNET_API_URL}deleteByEmail`, {
       headers: myConstants.headers,
-      params: { id: String(empId) },
-    });
+      params: { email: String(email) },
+    }).pipe(
+      tap(()=>console.log('url called for delete:', `${environment.ASPNET_API_URL}deleteByEmail`))
+    );
   }
 }

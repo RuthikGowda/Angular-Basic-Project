@@ -7,7 +7,8 @@ import { NgOtpInputComponent } from 'ng-otp-input';
 import { routes } from '../../app.routes';
 import { Router, RouterLink } from '@angular/router';
 import { SweetAlertzService } from '../../Service/sweet-alertz.service';
-import { catchError, EMPTY } from 'rxjs';
+import { catchError, EMPTY, finalize } from 'rxjs';
+import { ApiResponse } from '../../Model/ApiRes';
  
 @Component({
   selector: 'app-login',
@@ -16,48 +17,58 @@ import { catchError, EMPTY } from 'rxjs';
   styleUrl: './login.component.css',
   standalone: true,
 })
-export class LoginComponent implements AfterViewInit{
+export class LoginComponent    {
   
   @ViewChild("otpModal") otpModalRef!: ElementRef;
+  
  
 
-  constructor(private router: Router) {}
-  sweetAlertzService = inject(SweetAlertzService);
-
-  ngAfterViewInit(): void {
+  constructor(private router: Router) {
     
   }
+   
+  sweetAlertzService = inject(SweetAlertzService);
+
+   
 
   // Define the OTP variable to hold the OTP value
   otp: string = '';
   otpResponse: string = '';
   enableOTPbtn: boolean = false;
-  onOtpSubmit(form: NgForm) {
-    this.sweetAlertzService.showLoading();
-     this.otpModalRef.nativeElement.style.display="none";
-    console.log('OTP submitted', this.otp, this.otpResponse);
-    if (
-      this.otp === this.otpResponse &&
-      this.otp !== '' &&
-      this.otpResponse !== ''
-    ) {
-      this.sweetAlertzService.SuccessTopEnd(
+  isOTPSubmitting: boolean = false; 
+  registerErrorMSg: string='';
+  otpErrorMSg: string='';
+ 
+
+  onOtpSubmit(): void { 
+    this.isOTPSubmitting = true;
+    this.otpErrorMSg = '';
+    this.Authsrv.ValidateRegOtp<ApiResponse<string>>(this.user.email, this.otp)
+     .pipe(
+      catchError((err:any)=>{ console.error('error in validating OTP:', err);
+        this.isOTPSubmitting= false;
+        return EMPTY;
+      })).subscribe({
+        next : (res)=>{
+          if(res.success === true){
+              this.sweetAlertzService.SuccessTopEnd(
         'OTP submitted successfully! Redirecting to login page...'
       );
-      this.router.navigate(['/Login']); // Redirect to home or any other route after successful OTP submission
-      //this.Authsrv.setLoggedIn(true);
-    } else {
-      this.sweetAlertzService.ErrorTopEnd("OTP verification failed, Try again")
-    }
-
-    // You can handle the OTP submission here
-    // For example, you might want to validate it or send it to the server
+       this.otpModalRef.nativeElement.style.display="none";
+       this.router.navigate(['/Login']); 
+          } 
+          else{
+            this.otpErrorMSg = res.message;
+          }
+          this.isOTPSubmitting= false;
+        }
+      }) 
   }
 
   onOtpChange($event: string) {
-    console.log('OTP changed:', $event);
-    // You can handle the OTP change event here
-    // For example, you might want to store it or validate it
+     if( $event.length===6){
+      this.onOtpSubmit();
+     }
   }
 
   readonly Authsrv = inject(AuthService);
@@ -66,17 +77,20 @@ export class LoginComponent implements AfterViewInit{
   termsChecked = false;
   user: IUserCred = {
     id: 0,
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
   };
   onSubmit() {
     this.sweetAlertzService.showLoading('Trying to Register... Please wait');
+    this.registerErrorMSg ='';
     console.log('Form submitted:', this.user);
     this.Authsrv.Register(this.user)
       .pipe(
         catchError((error: 
-          any) => {
+          any) => { 
           console.error('Error occurred during registration:', error);
           const validationErrors = error?.error?.errors;
           if (validationErrors) {
@@ -91,37 +105,22 @@ export class LoginComponent implements AfterViewInit{
               error.statusText,
               'error'
             );
-          }
-
+          } 
           return EMPTY;
-        })
+        }),
+        finalize(()=>this.sweetAlertzService.closeLoading())
       )
       .subscribe({
         next: (response: any) => {
           if (response.success === true) {
-            console.log('Login successful!' + response.message);
+            console.log('Login successful!' + response);
             this.sweetAlertzService.SuccessTopEnd(
               'Your request is processing. Enter OTP sent to your email.'
             );
              this.otpModalRef.nativeElement.style.display="block";
-             
-            sessionStorage.setItem('user', response.data);
-
-            this.otpResponse = response.data.otp;
-            console.log(
-              'In submit() ',
-              sessionStorage.getItem('user'),
-              ' otp response',
-              this.otpResponse
-            );
-          } else {
-            this.sweetAlertzService.commonPopUp(
-              'Registration Failed',
-              response.message,
-              'error'
-            );
-            console.log('Registration failes!' + response.message);
-            this.Authsrv.setLoggedIn(false);
+              
+          } else { 
+           this.registerErrorMSg = response.message;  
           }
         },
       });

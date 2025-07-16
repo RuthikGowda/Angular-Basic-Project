@@ -2,7 +2,7 @@ import { inject, Injectable, Query } from '@angular/core';
 import { IUserCred } from '../Model/iuser-cred';
 import { environment } from '../../environments/environment.production';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ILoginCred } from '../Model/ilogin-cred';
 import { PasswrdRes } from '../Model/passwrd-res';
 
@@ -48,6 +48,19 @@ export class AuthService {
     );
   }
 
+  ValidateRegOtp<ApiResponse>(email: string, otp: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(
+      `${environment.ASPNET_API_URL}${environment.validateRegOTP}`,
+      {
+        headers: this.headers,
+        params: {
+          email,
+          otp
+        }
+      }
+    );
+  }
+
   Login(user: ILoginCred): Observable<any> {
     return this.http.post<any>(
       environment.ASPNET_API_URL + 'userLogin',
@@ -63,7 +76,7 @@ export class AuthService {
 
   resetPassword(email: string): Observable<PasswrdRes> {
     return this.http.get<PasswrdRes>(
-      environment.ASPNET_API_URL + 'userPasswordReset',
+      environment.ASPNET_API_URL + environment.userPasswordReset,
       {
         headers: this.headers,
         params: { emailId: email },

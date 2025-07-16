@@ -19,8 +19,46 @@
                                         Create new account
                                     </h5>
 
-                                    <div class="text-body mb-3">
-                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div class="alert alert-danger p-2" role="alert" *ngIf="registerErrorMSg">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                            <span class="text-dap-0 fw-semibold" [innerHTML]="registerErrorMSg">
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="text" class="form-control form-control-lg" name="FirstName"
+                                                    [(ngModel)]="user.firstName" required minlength="2" maxlength="25"
+                                                    #firstName="ngModel" autocomplete="off" placeholder="First Name" />
+                                                <div class="text-danger small mt-1"
+                                                    *ngIf="firstName.hasError('required') && (firstName.dirty || firstName.touched)">
+                                                    First Name is required.
+                                                </div>
+                                                <div class="text-danger small mt-1"
+                                                    *ngIf="firstName.hasError('minlength') && (firstName.dirty || firstName.touched)">
+                                                    First Name must be at least 2 characters.
+                                                </div>
+                                                <div class="text-danger small mt-1"
+                                                    *ngIf="firstName.hasError('maxlength') && (firstName.dirty || firstName.touched)">
+                                                    First Name cannot exceed 25 characters.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div data-mdb-input-init class="form-outline">
+                                                <input type="text" class="form-control form-control-lg" name="LastName"
+                                                    [(ngModel)]="user.lastName" required #lastName="ngModel"
+                                                    autocomplete="off" placeholder="Last Name" />
+                                                <div class="text-danger small mt-1"
+                                                    *ngIf="lastName.hasError('required') && (lastName.dirty || lastName.touched)">
+                                                    Last Name is required.
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div data-mdb-input-init class="form-outline mb-3">
@@ -71,7 +109,7 @@
                                             [(ngModel)]="termsChecked" #check="ngModel" requiredTrue required />
                                         <label class="form-check-label fw-normal small text-muted">
                                             I agree to the Terms and
-                                                Conditions 
+                                            Conditions
                                         </label>
                                         <div class="text-danger small mt-1"
                                             *ngIf="check.invalid && (form.controls['Remember']?.dirty || form.controls['Remember']?.touched)">
@@ -90,7 +128,7 @@
                                             Register
                                         </button>
                                     </div>
-
+                                    
                                     <!-- <div *ngIf="enableOTPbtn" class="mb-3 text-center">
                                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
                                             data-bs-target="#staticBackdrop">
@@ -163,65 +201,54 @@
         </div> -->
 
 
-<div
-  class="modal"
-  #otpModal
-  data-bs-backdrop="static"
-  data-bs-keyboard="false"
-  tabindex="-1"
-  aria-labelledby="staticBackdropLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-top">
-    <div class="modal-content border-0 shadow-lg rounded-4">
-      <div class="modal-header bg-primary text-white rounded-top-4">
-        <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Verify OTP</h1>
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
+        <div class="modal" #otpModal data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-top">
+                <div class="modal-content border-0 shadow-lg rounded-4">
+                    <div class="modal-header bg-primary text-white rounded-top-4">
+                        <h1 class="modal-title fs-5 fw-semibold" id="staticBackdropLabel">Verify OTP</h1>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
 
-      <form #Otpform="ngForm" (ngSubmit)="onOtpSubmit(Otpform)">
-        <div class="modal-body px-4">
-          <p class="mb-3 text-secondary">
-            Please enter the OTP sent to <span class="fw-semibold text-dark">{{ user.email }}</span>
-          </p>
+                    <form #Otpform="ngForm" (ngSubmit)="onOtpSubmit()">
+                        <div class="modal-body px-4">
+                            <p class="mb-3 text-secondary">
+                                Please enter the OTP sent to <span class="fw-semibold text-dark">{{ user.email }}</span>
+                            </p>
+                            <div *ngIf="otpErrorMSg" class=" text-danger d-flex align-items-center gap-2 p-2 "   style="font-size: 1rem;">
+                                <i class="bi bi-exclamation-triangle-fill fs-5 me-2"></i>
+                                <span class="fw-semibold" [innerHTML]="otpErrorMSg"></span>
+                            </div>
 
-          <div class="d-flex justify-content-center">
-            <ng-otp-input
-              (onInputChange)="onOtpChange($event)"
-              [config]="{ length: 6 }"
-              name="otp"
-              [(ngModel)]="otp"
-              #otpInput="ngModel"
-            ></ng-otp-input>
-          </div>
+                            <div class="d-flex justify-content-center">
+                                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }" name="otp"
+                                    [(ngModel)]="otp" #otpInput="ngModel"></ng-otp-input>
+                            </div>
 
-          <div
-            class="form-text text-danger text-center mt-2"
-            *ngIf="otpInput.invalid && (otpInput.dirty || otpInput.touched)"
-          >
-            OTP is required and must be 6 digits.
-          </div>
+                            <div class="form-text text-danger text-center mt-2 ps-5"
+                                *ngIf="(otpInput.dirty || otpInput.touched) && (!otp || otp.length !== 6)">
+                                OTP is required and must be 6 digits.
+                            </div>
+                        </div>
+
+                        <div class="modal-footer justify-content-between px-4 pb-4 pt-3">
+
+                            <button class="btn btn-primary rounded-pill px-4" type="submit"
+                                [disabled]="isOTPSubmitting || !otp || otp.length !== 6">
+                                <span *ngIf="!isOTPSubmitting"> Submit OTP</span>
+                                <div class="div text-center align-items-center d-inline-flex" *ngIf="isOTPSubmitting">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+                                    </span>
+                                    <div class=" ps-1 ">Please Wait</div>
+                                </div>
+                            </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="modal-footer justify-content-between px-4 pb-4 pt-3">
-         
-          <button
-            type="submit"
-            class="btn btn-primary rounded-pill px-4"
-            data-bs-dismiss="modal" *ngIf="Otpform.valid"
-          >
-            Submit OTP
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 
     </div>
