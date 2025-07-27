@@ -31,6 +31,21 @@ export class AuthService {
     }
   }
 
+  storeToken(token: string){
+    sessionStorage.setItem('JWT',token);
+    console.log('Token stored in sessionStorage:', token);
+  }
+  isLoggedIn() : boolean{
+    return !!sessionStorage.getItem('JWT');
+  }
+
+  logoutUser(){
+    sessionStorage.removeItem('JWT');
+    sessionStorage.removeItem('user');
+    this.setLoggedIn(false);
+    console.log('User logged out successfully.');
+  }
+
   http = inject(HttpClient);
   constructor() {}
 

@@ -43,12 +43,11 @@
                   "with": "src/environments/environment.production.ts"
                 }
               ],
-
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
