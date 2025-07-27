@@ -30,9 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   LogOut(){
-    this.authSrv.setLoggedIn(false);
-    sessionStorage.removeItem('user');
-    this.isLoggedIn = false;
+    this.authSrv.logoutUser();
     console.log('User logged out successfully.');
     this.router.navigate(['/Login']);
   }

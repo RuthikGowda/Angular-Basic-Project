@@ -12,6 +12,9 @@ import { AuthService } from '../../Service/auth.service';
 import { SweetAlertzService } from '../../Service/sweet-alertz.service';
 import { catchError, EMPTY, finalize, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabel } from 'primeng/floatlabel';
+import { ButtonModule } from 'primeng/button';
 
 declare var window: any;
 
@@ -21,7 +24,7 @@ declare var window: any;
     FormsModule,
     CommonModule,
     RouterLink, 
-    ReactiveFormsModule,
+    ReactiveFormsModule,  ButtonModule  
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
@@ -54,36 +57,16 @@ export class LoginPageComponent {
         this.sweetAlertzService.closeLoading();
         if (response.success === true) {
           console.log('response:', response);
-          if (response.data === 1) {
+           
+           this.authSrv.setLoggedIn(true); 
+           this.authSrv.storeToken(response.data);
+            sessionStorage.setItem('user', this.userCred.email);
+            window.location.href = '/Home';
             this.sweetAlertzService.SuccessTopEnd(
               'Login successful! Redirecting...'
             ); 
-            this.authSrv.setLoggedIn(true);
-            sessionStorage.setItem('user', this.userCred.email);
-            window.location.href = '/Home';
            // this.router.navigate(['/Home']); // Redirect to home or any other route after successful login
-          }else if(this.userCred.email==="qwer@1234")
-          {
-
-  this.sweetAlertzService.SuccessTopEnd(
-              'Login successful! Redirecting...'
-            );
-            this.authSrv.setLoggedIn(true);
-            sessionStorage.setItem('user', this.userCred.email);
-            this.router.navigate(['/Home']); // Redirect to home or any other route after successful login
-          }
-        }
-         else  
-          if(this.userCred.email==="qwer@1234")
-          {
-
-  this.sweetAlertzService.SuccessTopEnd(
-              'Login successful! Redirecting...'
-            );
-            this.authSrv.setLoggedIn(true);
-            sessionStorage.setItem('user', this.userCred.email);
-            this.router.navigate(['/Home']); // Redirect to home or any other route after successful login
-          }
+          }  
           else if (response.data === -2)
             this.sweetAlertzService.commonPopUp(
               'Invalid input',
@@ -111,17 +94,7 @@ export class LoginPageComponent {
         console.error('Login error:', error);
         console.error('Login error1:', error.error.errors);
         const validationErrors = error?.error?.errors;
-         if(this.userCred.email="qwer@1234")
-          {
-  this.sweetAlertzService.SuccessTopEnd(
-              'Login successful! Redirecting...'
-            );
-            this.authSrv.setLoggedIn(true);
-            sessionStorage.setItem('user', this.userCred.email);
-            window.location.href = '/Home';
-            //this.router.navigate(['/Home']); // Redirect to home or any other route after successful login
-          }
-        else if (validationErrors) {
+          if (validationErrors) {
           const errorMessages = Object.values(validationErrors).flat();
           console.error('Validation errors:', errorMessages.join(', '));
           this.sweetAlertzService.commonPopUp(
