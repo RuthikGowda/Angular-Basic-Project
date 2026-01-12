@@ -40,73 +40,117 @@
                                     <h5 class="fw-semibold text-center mb-4" style="letter-spacing: 1px; color: #333;">
                                         Sign into your account
                                     </h5>
+                                    <div class="flex justify-center gap-2">
 
-                                    <!-- Email Field -->
-                                    <div data-mdb-input-init class="form-outline mb-3">
-                                        <input type="email" class="form-control form-control-lg" name="email" required
-                                            email #email="ngModel" [(ngModel)]="userCred.email" placeholder="Email"
-                                            autocomplete="off" />
-                                        <div class="form-text text-danger"
-                                            *ngIf="email.hasError('required') && (email.dirty || email.touched)">
-                                            Email is required.
+
+                                        <!-- Email Field -->
+                                        <div data-mdb-input-init class="form-outline mb-4">
+                                            <p-floatlabel variant="on">
+                                                <p-iconfield>
+                                                    <p-inputicon>
+                                                        <i class="pi pi-user"></i>
+                                                    </p-inputicon>
+                                                    <input type="email" id="email" pInputText
+                                                        class="form-control form-control-lg" name="email" required email
+                                                        #email="ngModel" [(ngModel)]="userCred.email"
+                                                        autocomplete="off" />
+                                                    <label for="email" class="form-label">Enter your email </label>
+                                                </p-iconfield>
+
+
+                                                <p-message severity="error"
+                                                    *ngIf="email.hasError('required') && (email.dirty || email.touched)"
+                                                    size="small" variant="simple"> Email is required.
+                                                </p-message>
+                                                <p-message severity="error"
+                                                    *ngIf="email.hasError('email') && (email.dirty || email.touched)"
+                                                    size="small" variant="simple"> Email is not
+                                                    valid.
+                                                </p-message>
+                                                <!-- <div class="form-text text-danger"
+                                                *ngIf="email.hasError('email') && (email.dirty || email.touched)">
+                                                Please enter a valid email address.
+                                            </div> -->
+                                            </p-floatlabel>
                                         </div>
-                                        <div class="form-text text-danger"
-                                            *ngIf="email.hasError('email') && (email.dirty || email.touched)">
-                                            Please enter a valid email address.
+
+                                        <!-- Password Field -->
+                                        <div data-mdb-input-init class="form-outline mb-3">
+                                            <p-floatlabel variant="on">
+                                                <p-iconfield>
+                                                    <p-inputicon>
+                                                        <i class="bi bi-key"></i>
+                                                    </p-inputicon>
+                                                    <input type="password" pInputText name="password"
+                                                        class="form-control form-control-lg" required minlength="8"
+                                                        id="password" maxlength="20" #password="ngModel"
+                                                        [(ngModel)]="userCred.password" autocomplete="off" />
+                                                    <label for="password" class="form-label">Enter your password
+                                                    </label>
+                                                </p-iconfield>
+                                                <p-message severity="error"
+                                                    *ngIf="password.hasError('required') && (password.dirty || password.touched)"
+                                                    size="small" variant="simple">
+                                                    Password is required.
+                                                </p-message>
+                                                <p-message severity="error"
+                                                    *ngIf="(password.hasError('minlength') || password.hasError('maxlength')) && (password.dirty || password.touched)"
+                                                    size="small" variant="simple">
+                                                    Password must be 8–20 characters.
+                                                </p-message>
+
+                                                <!-- <p-message severity="error" lass="form-text text-danger"
+                                                    *ngIf="password.hasError('required') && (password.dirty || password.touched)">
+                                                    Password is required.
+                                                </p-message> -->
+
+                                                <!-- <div class="form-text text-danger"
+                                                    *ngIf="(password.hasError('minlength') || password.hasError('maxlength')) && (password.dirty || password.touched)">
+                                                    Password must be 8–20 characters.
+                                                </div> -->
+                                            </p-floatlabel>
+                                            <div class="d-flex justify-content-end">
+                                                <a class="small text-muted pt-1" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#passwordResetMpdal">Forgot password?</a>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Password Field -->
-                                    <div data-mdb-input-init class="form-outline mb-3">
-                                        <input type="password" class="form-control form-control-lg" name="password"
-                                            required minlength="8" maxlength="20" #password="ngModel"
-                                            [(ngModel)]="userCred.password" placeholder="Password" autocomplete="off" />
 
-                                        <div class="form-text text-danger"
-                                            *ngIf="password.hasError('required') && (password.dirty || password.touched)">
-                                            Password is required.
+
+                                        <!-- Submit Button -->
+                                        <div class="pt-2 mb-3">
+                                            <button data-mdb-button-init data-mdb-ripple-init pButton pRipple
+                                                [disabled]="!LoginForm.valid" style="background-color: #9A616D;"
+                                                class="btnbtn-md w-100 rounded-pill shadow-sm hover-scale"
+                                                type="submit">
+                                                Login
+                                            </button>
                                         </div>
-                                        <div class="form-text text-danger"
-                                            *ngIf="(password.hasError('minlength') || password.hasError('maxlength')) && (password.dirty || password.touched)">
-                                            Password must be 8–20 characters.
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <a class="small text-muted pt-1" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#passwordResetMpdal">Forgot password?</a>
-                                        </div>
-                                    </div>
 
 
 
-                                    <!-- Submit Button -->
-                                    <div class="pt-2 mb-3">
-                                        <button data-mdb-button-init data-mdb-ripple-init [disabled]="!LoginForm.valid"
-                                            class="btn btn-dark btn-md w-100 rounded-pill shadow-sm hover-scale"
-                                            type="submit">
-                                            Login
-                                        </button>
-                                    </div>
 
+                                        <!-- Register Link -->
+                                        <p class="text-center mt-4 mb-2" style="color: #393f81;">
+                                            Don't have an account?
+                                            <a class="ms-1 icon-link icon-link-hover fw-semibold"
+                                                routerLink="/Register">
+                                                Register Here
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16"
+                                                    aria-hidden="true" style="width: 16px; height: 16px;">
+                                                    <path
+                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                                </svg>
+                                            </a>
+                                        </p>
 
-
-                                    <!-- Register Link -->
-                                    <p class="text-center mt-4 mb-2" style="color: #393f81;">
-                                        Don't have an account?
-                                        <a class="ms-1 icon-link icon-link-hover fw-semibold" routerLink="/Register">
-                                            Register Here
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="bi" viewBox="0 0 16 16"
-                                                aria-hidden="true" style="width: 16px; height: 16px;">
-                                                <path
-                                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
-                                            </svg>
-                                        </a>
-                                    </p>
-
-                                    <!-- Terms and Privacy -->
-                                    <!-- <div class="text-center small text-muted">
+                                        <!-- Terms and Privacy -->
+                                        <!-- <div class="text-center small text-muted">
                                         <a href="#!" class="me-3">Terms of use</a>
                                         <a href="#!">Privacy policy</a>
                                     </div>-->
+
+                                    </div>
                                 </form>
 
 
@@ -142,6 +186,8 @@
                         <div data-mdb-input-init class="form-outline my-1">
                             <label class="form-label">Email input</label>
                             <input type="email" name="emailforgot" [formControl]="emailforgot" class="form-control" />
+
+                            
                             <span class="text-danger small "
                                 *ngIf="emailforgot.hasError('required') && (emailforgot.dirty || emailforgot.touched)">
                                 Email is required.
@@ -154,17 +200,6 @@
                             <span class="text-danger small" *ngIf="resetPasswordError" [innerHTML]="resetPasswordError"
                                 style="word-break: break-word; white-space: pre-line;"></span>
                         </div>
-                        <!-- <p-floatlabel variant="on">
-                            <input pInputText id="on_label" [formControl]="emailforgot" autocomplete="off" />
-                            <label for="on_label">On Label</label>
-                        </p-floatlabel> -->
-                        <p-button label="Check" />
-                        
-<button pButton pRipple severity="success">
-    <WindowMaximizeIcon pButtonIcon />
-    <span pButtonLabel>label</span>
-</button>
-
 
                         <button type="button" data-mdb-ripple-init (click)="resetPassword()" *ngIf="!isLoading"
                             class="btn btn-outline-dark w-75 mt-3 " [disabled]="emailforgot.invalid">Send

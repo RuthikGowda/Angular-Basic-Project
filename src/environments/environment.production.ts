@@ -6,4 +6,6 @@ export const environment = {
     validateRegOTP:'userRegistration/validateRegOTP',
     updateUserProfile:'updateUserProfile',
     userPasswordReset: 'userPasswordReset',
+    addcarousel: 'ManageHome/AddCarousel',
+    getcarousel : 'ManageHome/GetCarousel'
 };

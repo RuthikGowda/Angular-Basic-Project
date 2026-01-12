@@ -1,0 +1,33 @@
+.transparent-bg {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Add component styles here */
+
+.custom-heading {
+    color: #07051f;
+    font-weight: bold;
+    font-size: 1.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.custom-SubHeading {
+    color: #07051f;
+    font-weight: bold;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.router-link-active {
+    color: #2f1360 !important;
+    background-color: #7d8f7a !important;
+    transition: color 0.2s ease;
+}
+.list-group-item:hover{
+    background-color: #b6c5b1 !important;
+    color: #2f1360 !important;
+    transition: color 0.2s ease, background-color 0.2s ease;
+
+}

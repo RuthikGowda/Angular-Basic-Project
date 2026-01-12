@@ -6,7 +6,8 @@ import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, CommonModule, RouterOutlet],
+  imports: [RouterLink, RouterLinkActive,
+     CommonModule, RouterOutlet],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

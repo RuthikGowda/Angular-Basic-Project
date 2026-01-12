@@ -7,6 +7,8 @@
   font-style: normal;
 } */
 
+@import "primeicons/primeicons.css";
+
 .body{
  font-family: "sans-serif", sans-serif;
   font-optical-sizing: auto;

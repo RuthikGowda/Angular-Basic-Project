@@ -1,0 +1,75 @@
+<div class="container-fluid ">
+
+    <div class="row">
+        <div class="col-12 my-2 ">
+            <div class="bg-light p-4 transparent-bg rounded shadow-sm">
+                <h6 class="mb-3 custom-heading">Manage Home</h6>
+                <p class="text-muted">Welcome to the admin management section. Here you can manage various aspects of
+                    the home page.</p>
+
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="card shadow-sm transparent-bg">
+                            <div class="card-body  ">
+                                <!-- <h4 class="card-title d-flex custom-SubHeading">Home Page Settings </h4> -->
+
+                                <div class="list-group transparent-bg">
+
+                                    <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                                        routerLink="carousel-manage" routerLinkActive="router-link-active  "
+                                        aria-current="true">
+                                        Carousel Manage
+                                    </button>
+                                    <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                                        aria-current="true"> A second button
+                                        item</button>
+                                    <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                                        aria-current="true"> A third button
+                                        item</button>
+                                    <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                                        aria-current="true"> A fourth button
+                                        item</button>
+                                    <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                                        aria-current="true"> A disabled button
+                                        item</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9 transparent-bg">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm transparent-bg">
+                <div class="card-body  ">
+                    <h4 class="card-title custom-SubHeading">Home Page Settings </h4>
+
+                    <div class="list-group transparent-bg">
+                        <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                            aria-current="true">
+                            The current button
+                        </button>
+                        <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                            aria-current="true"> A second button
+                            item</button>
+                        <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                            aria-current="true"> A third button
+                            item</button>
+                        <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                            aria-current="true"> A fourth button
+                            item</button>
+                        <button type="button" class="list-group-item list-group-item-action transparent-bg"
+                            aria-current="true"> A disabled button
+                            item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
