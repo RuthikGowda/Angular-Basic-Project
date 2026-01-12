@@ -4,6 +4,7 @@ import { LoginPageComponent } from './Feature/login-page/login-page.component';
 import { HomeComponent } from './Feature/home/home.component';
 import { loginGuardGuard } from './guaurd/login-guard.guard';
 import { HeaderComponent } from './Feature/header/header.component';
+import carousel from '@primeng/themes/aura/carousel';
 
 // export const routes: Routes = [
 //   {
@@ -39,44 +40,49 @@ import { HeaderComponent } from './Feature/header/header.component';
 //       ),
 //       title:"Manage Employee",
 //       canActivate:[loginGuardGuard]
-     
+
 //   }
 // ];
 
 export const routes: Routes = [
   {
-    path:'',
-    redirectTo :'Login',
-    pathMatch:'full'
+    path: '',
+    redirectTo: 'Login',
+    pathMatch: 'full'
+  }, {
+    path: 'manage-carousel',
+    loadComponent: () =>
+      import('./Feature/admin/carousel-manage/carousel-manage.component').then(
+        (c) => c.CarouselManageComponent
+      )
+  },
+  {
+    path: 'Login',
+    component: LoginPageComponent,
+    title: 'Login'
+  },
+  {
+    path: 'Register',
+    component: LoginComponent,
+    title: 'Register'
+  },
+  {
+    path: 'resetpassword',
+    loadComponent: () =>
+      import('./Feature/resetpassword/resetpassword.component').then((c) => c.ResetpasswordComponent),
+    title: 'Password Reset'
   }
-     ,
-      {
-        path: 'Login',
-        component: LoginPageComponent,
-        title: 'Login'
-      },
-      {
-        path: 'Register',
-        component: LoginComponent,
-        title: 'Register'
-      },
-      {
-        path: 'resetpassword',
-        loadComponent:() =>
-        import('./Feature/resetpassword/resetpassword.component').then( (c)=>c.ResetpasswordComponent), 
-        title: 'Password Reset'
-      }
-    ,
+  ,
   {
     path: '',
-    component:HeaderComponent,
+    component: HeaderComponent,
     canActivate: [loginGuardGuard],
     children: [
       {
         path: 'Home',
         component: HomeComponent,
         title: 'Home',
-        
+
       },
       {
         path: 'manageEmployee',
@@ -85,7 +91,21 @@ export const routes: Routes = [
             (c) => c.AddEmployeeComponent
           ),
         title: 'Manage Employee',
-         
+
+      },
+      {
+        path: 'manage-home',
+        loadComponent: () =>
+          import('./Feature/admin/manage-home/manage-home.component').then(
+            (c) => c.ManageHomeComponent
+          ),
+        title: 'Carousel Manage',
+        children: [{
+          path: 'carousel-manage',
+          loadComponent: () => import('./Feature/admin/carousel-manage/carousel-manage.component')
+            .then((c) => c.CarouselManageComponent),
+        }
+        ]
       }
     ]
   },

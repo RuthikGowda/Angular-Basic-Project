@@ -1,127 +1,85 @@
-<p>home works!</p>
-
-<div class="mb-3">
-    <button class="btn btn-primary me-auto" (click)="testSwal()">Gtext swal</button>
-    <button class="btn btn-primary me-auto" (click)="showNetworkDownAlert()">showNetworkDownAlert</button>
-    <button class="btn btn-primary me-auto" (click)="closeNetworkDownAlert()">closeNetworkDownAlert</button>
-
-
-
-    <button class="btn btn-primary me-auto" (click)="showAvatar()">show Avatar</button>
+<!-- Main Carousel -->
+<div id="mainCarousel" class="carousel slide mb-4 mt-4  " data-bs-ride="carousel">
+    <div class="carousel-inner" *ngIf="carouselUiData$ | async as items">
+        @for (item of items; track $index) {
+        <div class="carousel-item active">
+            <div style="height: 400px; overflow: hidden;">
+                <img [src]="item.imageUrl"
+                    class="d-block w-100 h-100 object-fit-cover" alt="...">
+            </div>
+            <div class="carousel-caption d-none d-md-block">
+                <h5 class="text-black">{{item.title}}</h5>
+                <p class="text-black"> {{item.description}}</p>
+            </div>
+        </div>
+        }
+      
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
 </div>
-<div class="row container text-center">
-    <div class="col d-flex gap-3">
-        <div class="card text-start mb-3 mt shadow-sm hover-shadow" style="transition: box-shadow 0.2s; width: 18rem;">
-            <img class="card-img-top"
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="Title"
-                width="150" height="150" style="object-fit: cover;" />
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Microsoft Word is a word processing program developed by Microsoft. It was first
-                    released on October 25, 1983, under the name Multi-Tool Word for Xenix systems. Subsequent versions
-                    were later written
-                </p>
-            </div>
-        </div>
-        <div class="card text-start mb-3 mt shadow-sm hover-shadow" style="transition: box-shadow 0.2s; width: 18rem;">
-            <img class="card-img-top"
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="Title"
-                width="150" height="150" style="object-fit: cover;" />
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Microsoft Word is a word processing program developed by Microsoft. It was first
-                    released on October 25, 1983, under the name Multi-Tool Word for Xenix systems. Subsequent versions
-                    were later written
-                </p>
-            </div>
-        </div>
-        <div class="card text-start mb-3 mt shadow-sm hover-shadow" style="transition: box-shadow 0.2s; width: 18rem;">
-            <img class alt="Title" width="150" height="150" style="object-fit: cover;" />
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Microsoft Word is a word processing program developed by Microsoft. It was first
-                    released on October 25, 1983, under the name Multi-Tool Word for Xenix systems. Subsequent versions
-                    were later written
-                </p>
-            </div>
-        </div>
-        <div class="card text-start mb-3 mt shadow-sm hover-shadow" style="transition: box-shadow 0.2s; width: 18rem;">
-            <img class alt="Title" width="150" height="150" style="object-fit: cover;" />
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Microsoft Word is a word processing program developed by Microsoft. It was first
-                    released on October 25, 1983, under the name Multi-Tool Word for Xenix systems. Subsequent versions
-                    were later written
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col d-flex gap-3">
-        <div class="card text-start mb-3 mt shadow-sm hover-shadow" style="transition: box-shadow 0.2s; width: 18rem;">
-            <img class alt="Title" width="150" height="150" style="object-fit: cover;" />
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Microsoft Word is a word processing program developed by Microsoft. It was first
-                    released on October 25, 1983, under the name Multi-Tool Word for Xenix systems. Subsequent versions
-                    were later written
-                </p>
-            </div>
-        </div>
-        <div class="card text-start mb-3 mt shadow-sm hover-shadow" style="transition: box-shadow 0.2s; width: 18rem;">
-            <img class alt="Title" width="150" height="150" style="object-fit: cover;" />
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Microsoft Word is a word processing program developed by Microsoft. It was first
-                    released on October 25, 1983, under the name Multi-Tool Word for Xenix systems. Subsequent versions
-                    were later written
-                </p>
-            </div>
-        </div>
 
-    </div>
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-5">
-                <div class="">
-                    <h2>with Signals</h2>
-                    <div class="mb-3">
-                        <label for="" class="form-label">Select</label>
-                       <select class="form-select form-select-lg" name="city" [(ngModel)]="selectedCity" >
-                        <option selected disabled>Select one</option>
-                        <option value="New York">New York</option>
-                        <option value="Los Angeles">Los Angeles</option>
-
-                       </select>
-
-                       {{selectedCity}}
-                    </div>
+<div class="container-fluid mb-5 position-relative">
+    <h3 class="mb-4">Shop by Category</h3>
+    <!-- Left Arrow -->
+    <button type="button"
+        class="btn btn-light bg-transparent border-0 position-absolute top-50 start-0 translate-middle-y z-3 shadow d-none d-md-flex align-items-center justify-content-center"
+        style="width: 48px; height: 48px;" (click)="categoryScroll.scrollBy({ left: -300, behavior: 'smooth' })">
+        <span class="fs-3">&lt;</span>
+    </button>
+    <!-- Right Arrow -->
+    <button type="button"
+        class="btn btn-light bg-transparent border-0 position-absolute top-50 end-0 translate-middle-y z-3 shadow d-none d-md-flex align-items-center justify-content-center"
+        style="width: 48px; height: 48px;" (click)="categoryScroll.scrollBy({ left: 300, behavior: 'smooth' })">
+        <span class="fs-3">&gt;</span>
+    </button>
+    <div #categoryScroll class="category-scroll row flex-row flex-nowrap overflow-auto g-4 pb-2"
+        style="scrollbar-width: none; -ms-overflow-style: none; overflow-x: auto;">
+        <div class="col-10 col-sm-6 col-md-4 col-lg-3" *ngFor="let category of categories" style="min-width: 270px;">
+            <div class="card h-100 shadow-lg border-0 rounded-4 category-card transition">
+                <div class="d-flex align-items-center justify-content-center rounded-top-4 overflow-hidden"
+                    style="height: 200px; background: linear-gradient(135deg, #f8fafc 60%, #e0e7ef 100%);">
+                    <img [src]="category.imageUrl" class="card-img-top" [alt]="category.title"
+                        style="height: 180px; width: 100%; object-fit: cover; border-radius: 1rem 1rem 0 0;">
                 </div>
-            </div>
-            <!-- <div class="col-1 d-flex align-items-center justify-content-center">
-                <div style="border-left:1px solid #ccc; height:100%;"></div>
-            </div> -->
-            <div class="col-5">
-                <div class="">
-                    <h2>without Signals</h2>
-                    <div class="mb-3">
-                        <label for="" class="form-label">Select</label>
-                        <select class="form-select form-select-lg"   
-                        (ngModelChange)="onCityChange($event)"
-                        [(ngModel)]="selectedCitySignal" 
-                        name="city" id="city">
-                            <option disabled selected>Select one</option>
-                            @for (item of cityName(); track $index) {
-                                <option [value]="item">{{item}}</option>
-                            }
-                             
-                        </select>
-                        {{selectedCitySignal()}}
-                        <br/>
-
-                        {{cityWithdata()}}
-                    </div>
+                <div class="card-body text-center h-25 p-0">
+                    <h4 class="card-title fw-bold text-primary mb-0">{{ category.title }}</h4>
+                    <p class="card-text text-muted small">{{ category.description }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center">
+                    <a href="#" class="btn btn-outline-primary rounded-pill px-4">Shop Now</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+<div class="container-fluid">
+    <h3 class="mb-4">Featured Products</h3>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let product of products">
+            <div class="card h-100 shadow-sm">
+                <div
+                    style="height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <img [src]="product.imageUrl" class="card-img-top" [alt]="product.name"
+                        style="height: 200px; width: 100%; object-fit: cover;">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="#" class="btn">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

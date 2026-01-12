@@ -11,12 +11,13 @@ export class HttpSvcService {
 
   http = inject(HttpClient)
   
+httpGetWithNoData<T>(url: string): Observable<ApiResponse<T>> {
+    return this.http.get<ApiResponse<T>>(url);
+  }
 
-  httpPost<Tres>(url: string, data: any): Observable<ApiResponse<Tres>> {
+  httpPost<Tres, Tdata>(url: string, data: Tdata): Observable<ApiResponse<Tres>> {
     debugger;
     console.log('HTTP POST Request:', url, data);
-    return this.http.post<ApiResponse<Tres>>(url, data, {
-      headers: myConstants.headers
-    });
+    return this.http.post<ApiResponse<Tres>>(url, data );
   }
 }

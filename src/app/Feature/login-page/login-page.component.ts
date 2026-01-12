@@ -11,10 +11,15 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../Service/auth.service';
 import { SweetAlertzService } from '../../Service/sweet-alertz.service';
 import { catchError, EMPTY, finalize, tap } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http'; 
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
-import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
 
 declare var window: any;
 
@@ -24,7 +29,9 @@ declare var window: any;
     FormsModule,
     CommonModule,
     RouterLink, 
-    ReactiveFormsModule,  ButtonModule  
+    ReactiveFormsModule,  ButtonModule  , RippleModule , ButtonModule, InputTextModule, FloatLabel, MessageModule,
+    IconFieldModule, InputIconModule,
+    ToastModule
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',

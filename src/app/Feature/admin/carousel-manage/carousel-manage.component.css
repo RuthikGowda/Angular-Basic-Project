@@ -1,0 +1,51 @@
+.btnHover {
+    transition: transform 0.2s;
+}
+
+.btnHover:hover {
+    transform: scale(1.08);
+}
+
+.pcardHover {
+    transition: transform 0.3s;
+}
+  
+/* Icon styles */
+.icon-btn {
+  cursor: pointer;
+  font-size: 1.2rem; 
+  border-radius: 50%;
+  padding: 6px; 
+  transition: transform 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.1);
+}
+
+.card-hover:hover {
+    transform: scale(1.05);
+}
+
+ .card-hover{
+  transition: transform 0.3s;
+ }
+
+.speeddial {
+  opacity: 0;
+  display: none;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 0.2rem ;
+  transform: scale(0.65); /* Decreased size */
+}
+.card-with-speeddial:hover .speeddial {
+    opacity: 1;
+    display: block;
+    pointer-events: auto;
+}
+ 
+ 

@@ -1,4 +1,17 @@
-.hover-shadow:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15)!important;
-}
- 
+ .category-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-scroll {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+        flex-wrap: nowrap !important;
+    }
+    .category-card:hover{
+        overflow-x: auto;
+         
+        transition: transform 0.3s ease;
+        transform: scale(1.05);
+    }

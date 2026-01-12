@@ -1,0 +1,241 @@
+<div class="container-fluid my-3">
+    <h4 class="card-title d-flex custom-SubHeading">
+        Home Page Settings </h4>
+    <p-divider />
+
+    <div class="card" style="background: none; border: none;">
+        <div class="card-body">
+            <div class="col-3 mb-2">
+                <button type="button" (click)="showDialog()" class="btn btn-outline-secondary">+ Add Slide
+                    Item</button>
+            </div>
+            <hr>
+            <div class="row">
+                <div *ngIf="ProgressBar" class="d-flex justify-content-center align-items-center w-100"
+                    style="min-height: 200px;">
+                    <p-progress-spinner ariaLabel="loading" />
+                </div>
+                <!-- <p-card [style]="{ width: '20rem', overflow: 'hidden' , padding: '0px'}">
+                                    <ng-template #header>
+                                        <p-image styleClass="card-img-top" [src]="item.imageUrl" alt="Image"
+                                            [preview]="true"
+                                            [style]="{ height: '150px', width: '100%', objectFit: 'cover' }" width="400"
+                                            height="150" /> -->
+                <!-- <img alt="Card" class="card-img-top" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" /> -->
+                <!-- </ng-template>
+
+                                    <ng-template [style]="{padding:'0px'}" #title> {{item.title}} </ng-template>
+                                    <ng-template #subtitle> {{item.description}} </ng-template>
+                                    <p #subtitle class="m-0 p-0 small text-muted"> Created Date:
+                                        {{item.createdDate | date:'shortDate'}}</p>
+                                    <p-toggleswitch pSize="small" />
+
+                                    <ng-template #footer>
+
+                                        <div class="flex justify-content-center items-center d-flex">
+                                            <p-button label="Delete" severity="danger" class="w-full btnHover  me-4"
+                                                [outlined]="true" />
+                                            <p-button label="Edit" (onClick)="editCarousel(item)" class="w-full btnHover ms-4 " />
+                                        </div>
+                                    </ng-template>
+                                </p-card> -->
+                <!-- <div class="col-md-12">
+                    <div class="row">  -->
+                <ng-container *ngIf="carouselUiData$ | async as items">
+                    <ng-container *ngIf="items.length > 0; else noData">
+                        <div class="row">
+                            <div class="row g-3">
+                                <div *ngFor="let item of items"
+                                    class="col-12 col-sm-6 col-md-4 d-flex justify-content-center card-with-speeddial"> 
+                                    <!-- Container -->
+                                    <div class="card card-hover shadow-sm border-0 position-relative"
+                                        style="width: 100%; max-width: 20rem; height: 300px; display: flex; flex-direction: column; overflow: hidden;">
+
+
+
+
+                                        <!-- Image Section -->
+                                        <div style="flex: 0 0 55%;">
+                                            <p-image styleClass="card-img-top" [src]="item.imageUrl" alt="Image"
+                                                [preview]="true"
+                                                [style]="{ height: '150px', width: '100%', objectFit: 'cover' }"
+                                                width="400" height="150" />
+                                            <!-- <img [src]="item.imageUrl" class="card-img-top" alt="Image"
+                                                style="height: 100%; width: 100%; object-fit: cover;" /> -->
+                                        </div>
+
+                                        <!-- Card Body -->
+                                        <div
+                                            style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                            <div class="card-body py-2 px-3">
+                                                <h5 class="card-title mb-1">{{ item.title }}</h5>
+                                                <h6 class="card-subtitle mb-1 text-muted small">{{ item.description }}
+                                                </h6>
+                                                <p class="card-text text-muted small mb-1">
+                                                    Created Date: {{ item.createdDate | date:'shortDate' }}
+                                                </p>
+
+                                                <!-- Toggle Switch -->
+                                                <div class="form-check form-switch mt-2">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        [checked]="item.isActive"
+                                                        (change)="onToggleChange(item)"
+                                                        id="toggleSwitch-{{ item.id }}" name="switch" />
+                                                  
+                                                </div>
+                                                <div class="speeddial">
+                                                    <p-speeddial  [model]="getMenuItems(item)" [radius]="70" type="quarter-circle"
+                                                        direction="up-left"
+                                                        [style]="{ position: 'absolute', right: 0, bottom: 0 ,background: 'transparent' }" />
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div> 
+                        </div>
+                    </ng-container>
+                    <ng-template #noData>
+                        <p>No carousel items found.</p>
+                    </ng-template>
+
+                </ng-container>
+            </div>
+        </div>
+
+
+        <!-- <div class="col-md-4 pcardHover mb-2 p-1 flex items-center justify-center">
+                            <p-card [style]="{ width: '20rem', overflow: 'hidden' }">
+                                <ng-template #header>
+                                    <p-image class="card-img-top"
+                                        src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" alt="Image"
+                                        [preview]="true" height="100%" width="100%" /> -->
+
+        <!-- <img alt="Card" class="card-img-top" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" /> -->
+        <!-- </ng-template>
+
+                                <ng-template #title class="m-0 p-0"> Advanced Card </ng-template>
+                                <ng-template #subtitle> Card subtitle </ng-template>
+                                <p #subtitle class="m-0 p-0 small text-muted"> Created Date: {{'10-01-2023'}}</p>
+                                <p-toggleswitch pSize="small" />
+
+
+                                <ng-template #footer>
+                                    <div class="flex justify-content-center items-center d-flex">
+                                        <p-button label="Delete" severity="danger" class="w-full btnHover  me-4"
+                                            [outlined]="true" />
+                                        <p-button label="Edit" class="w-full btnHover ms-4 " />
+
+                                    </div>
+                                </ng-template>
+
+                            </p-card>
+                        </div> -->
+
+
+
+
+
+
+        <!-- <div class="col-4">
+                        <button type="submit" class="btn btn-outline-success">
+                            Save
+                        </button>
+                    </div> -->
+
+
+
+
+        <!-- <form [formGroup]="carouselForm" (ngSubmit)="onSubmit()">
+
+                        <div class="row" formArrayName="slide">
+                            <div [formGroupName]="i"
+                                *ngFor="let item of carouselForm.controls.slide.controls; let i = index"
+                                class="col-md-4 mb-3">
+                                <div class="card p-3">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" formControlName="title" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="subtitle" class="form-label">Subtitle</label>
+                                        <input type="text" formControlName="subtitle" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" class="form-control" name="image"
+                                            (change)="onFileSelected($event, i)">
+                                    </div>
+
+                                    <div class="mb-3" *ngIf="!!item.controls.image.value">
+                                        <div class="text-center">
+                                            <img [src]="item.controls.image.value" accept="image/png, image/jpeg"
+                                                alt="Carousel Image" class="img-fluid rounded"
+                                                style="max-height: 200px; object-fit: cover;">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="deleteBanner()">Remove</button>
+                                        <button type="button" class="btn btn-danger"
+                                        (click)="deleteBanner()">Remove</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-outline-secondary" (click)="add()">+ Add Slide
+                                    Item</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-outline-success" [disabled]="!carouselForm.valid">
+                                    Save
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form> -->
+    </div>
+</div>
+
+
+<div class="card flex justify-center">
+    <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+        <ng-template #header>
+            <div class="inline-flex items-center justify-center gap-2">
+                <h5>Upload Carousel Banner</h5>
+            </div>
+        </ng-template>
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="carouselImage" class="form-label">Image</label>
+                <input type="file" class="form-control" id="carouselImage" name="image"
+                    (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+                <p-message severity="error"
+                    *ngIf="addForm.controls.image.hasError('required') && addForm.controls.image.touched" size="small"
+                    variant="simple"> Email is required.
+                </p-message>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" formControlName="title" name="title" placeholder="Enter title">
+                <p-message severity="error"
+                    *ngIf="addForm.controls.title.hasError('required') && addForm.controls.image.touched" size="small"
+                    variant="simple"> Title is required.
+                </p-message>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" id="carouselDescription" rows="3" formControlName="description"
+                    name="description" placeholder="Enter description" required></textarea>
+                <p-message severity="error"
+                    *ngIf="addForm.controls.description.hasError('required') && addForm.controls.image.touched"
+                    size="small" variant="simple"> Description is required.
+                </p-message>
+            </div>
+            <p-toast></p-toast>
+            <button type="submit" class="btn btn-success w-100">Upload</button>
+
+        </form>
+    </p-dialog>
+</div>

@@ -48,7 +48,7 @@ export class ResetpasswordComponent  {
        this.errorMessage= "<strong>Invalid action!</strong> Please try again.";
        return;
     }else{
-      this.httpSrv.httpPost<boolean>(`${environment.ASPNET_API_URL}${environment.resetpswdvalid}`,
+      this.httpSrv.httpPost<boolean,any>(`${environment.ASPNET_API_URL}${environment.resetpswdvalid}`,
       {email:this.resetform.email,resetId:this.resetform.resetId}).subscribe({
         
         next: (response) => {
@@ -79,9 +79,9 @@ export class ResetpasswordComponent  {
 
     this.isloader = true;
 
-    this.httpSrv.httpPost<any>(`${environment.ASPNET_API_URL}${environment.resetPassword}`, this.resetform)
+    this.httpSrv.httpPost<any,any>(`${environment.ASPNET_API_URL}${environment.resetPassword}`, this.resetform)
     .pipe(
-      catchError((err:HttpErrorResponse)=>{
+      catchError((err:HttpErrorResponse)=>{  
         this.isloader=false;
         this.invalidAction=true;
         this.errorMessage= "<strong>Some error occurred!</strong> Please try again later.";
