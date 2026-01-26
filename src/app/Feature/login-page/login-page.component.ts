@@ -1,5 +1,5 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, Signal } from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -49,6 +49,8 @@ export class LoginPageComponent {
   isLoading: boolean = false;
   loginAlert: boolean = false;
   passwordLink: string = '';
+  isloginError = signal(false);
+  loginErrorMsg = signal('');
 
   emailforgot: FormControl = new FormControl('', [
     Validators.email,
@@ -63,6 +65,7 @@ export class LoginPageComponent {
         debugger;
         this.sweetAlertzService.closeLoading();
         if (response.success === true) {
+          this.isloginError.set(false);
           console.log('response:', response);
            
            this.authSrv.setLoggedIn(true); 
@@ -75,24 +78,37 @@ export class LoginPageComponent {
            // this.router.navigate(['/Home']); // Redirect to home or any other route after successful login
           }  
           else if (response.data === -2)
-            this.sweetAlertzService.commonPopUp(
-              'Invalid input',
-              'Please check your credentials.',
-              'error'
-            );
+          {
+            this.isloginError.set(true);
+            this.loginErrorMsg.set('Invalid input. Please check your credentials.');
+          }
           else if (response.data === -1)
-            this.sweetAlertzService.commonPopUp(
-              'User not found!!',
-              'Please register',
-              'error'
-            );
+          {
+            this.isloginError.set(true);
+            this.loginErrorMsg.set('User not found. Please register.');
+            // this.sweetAlertzService.commonPopUp(
+            //   'User not found!!',
+            //   'Please register',
+            //   'error'
+            // );
+          }
           else if (response.data === 0)
-            this.sweetAlertzService.commonPopUp(
-              'Login failed',
-              'Incorrect email/password. Please try again.',
-              'error'
-            );
-          else this.sweetAlertzService.ApiError();
+          {
+            this.isloginError.set(true);
+            this.loginErrorMsg.set('Incorrect email/password. Please try again.');
+            //
+            // this.sweetAlertzService.commonPopUp(
+            //   'Login failed',
+            //   'Incorrect email/password. Please try again.',
+            //   'error'
+            // );
+          }
+          else 
+            {
+              this.isloginError.set(true);
+              this.loginErrorMsg.set('An unexpected error occurred. Please try again later.');
+              // this.sweetAlertzService.ApiError();
+            }
           console.error('Login failed:', response.message);
         
       },
@@ -104,13 +120,17 @@ export class LoginPageComponent {
           if (validationErrors) {
           const errorMessages = Object.values(validationErrors).flat();
           console.error('Validation errors:', errorMessages.join(', '));
-          this.sweetAlertzService.commonPopUp(
-            'Validation Error',
-            errorMessages.join(', '),
-            'error'
-          );
+           this.isloginError.set(true);
+          this.loginErrorMsg.set(  `Validation Error: ${errorMessages.join(', ')}`);
+          // this.sweetAlertzService.commonPopUp(
+          //   'Validation Error',
+          //   errorMessages.join(', '),
+          //   'error'
+          // );
         } else {
-          this.sweetAlertzService.ApiError();
+           this.isloginError.set(true);
+          this.loginErrorMsg.set('An unexpected error occurred. Please try again later.');
+          // this.sweetAlertzService.ApiError();
         }
       },
     });

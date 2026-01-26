@@ -47,9 +47,10 @@ import carousel from '@primeng/themes/aura/carousel';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'Login',
+    redirectTo: 'Home',
     pathMatch: 'full'
-  }, {
+  }, 
+  {
     path: 'manage-carousel',
     loadComponent: () =>
       import('./Feature/admin/carousel-manage/carousel-manage.component').then(
@@ -104,6 +105,10 @@ export const routes: Routes = [
           path: 'carousel-manage',
           loadComponent: () => import('./Feature/admin/carousel-manage/carousel-manage.component')
             .then((c) => c.CarouselManageComponent),
+        },
+        {
+          path: 'Product-Category-Manage',
+          loadComponent : () => import('./Feature/admin/product-category-manage/product-category-manage.component').then((c) => c.ProductCategoryManageComponent),
         }
         ]
       }
