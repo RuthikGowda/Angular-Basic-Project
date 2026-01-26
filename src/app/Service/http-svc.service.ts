@@ -20,4 +20,9 @@ httpGetWithNoData<T>(url: string): Observable<ApiResponse<T>> {
     console.log('HTTP POST Request:', url, data);
     return this.http.post<ApiResponse<Tres>>(url, data );
   }
+
+  httpGet<T>(url: string, id?: string | number): Observable<ApiResponse<T>> {
+    const finalUrl = id !== undefined && id !== null ? `${url}/${id}` : url;
+    return this.http.get<ApiResponse<T>>(finalUrl);
+  }
 }

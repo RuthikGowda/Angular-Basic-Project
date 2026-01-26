@@ -30,6 +30,7 @@ import { SpeedDial } from 'primeng/speeddial';
 })
 
 export class CarouselManageComponent implements OnInit {
+
   //     }
   //   })
   //   this.httpsvc.httpPost<any, FormData>(`${environment.ASPNET_API_URL + environment.addcarousel}`, formData).subscribe({
@@ -52,6 +53,8 @@ export class CarouselManageComponent implements OnInit {
   visible: boolean = false;
   ProgressBar: boolean = false;
   menuItems: MenuItem[] | null = null;
+  showAiIcon: boolean = true;
+  addFormSubmitVisivle = true;
 
   ngOnInit(): void {
     this.ProgressBar = true;
@@ -70,7 +73,7 @@ export class CarouselManageComponent implements OnInit {
         icon: 'pi pi-trash',
         command: () => {
           this.deleteCarousel(item.id);
-          this.messageSvc.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+          
         }
       },
       {
@@ -87,8 +90,28 @@ export class CarouselManageComponent implements OnInit {
     this.addForm.patchValue(item);
   }
 
-  deleteCarousel(id: Number): void {
+  deleteCarousel(id: number): void {
     console.log('Delete Carousel Item with ID:', id);
+    this.httpsvc.httpGet<any>(`${environment.ASPNET_API_URL + environment.deletecarousel}`,id).pipe(
+      finalize(() => {
+        this.adminSvc.getCarouseldat(); 
+      })
+    ).subscribe({
+      next: (res: any) => {
+        console.log('Carousel item deleted successfully:', res);
+        if(res.success)
+        this.messageSvc.add({ severity: 'info', summary: 'Info', detail:  res.message });
+      else
+      this.messageSvc.add({ severity: 'warn', summary: 'Warn', detail: res.message });
+
+      },
+      error: (err: any) => {
+        console.error('Error deleting carousel item:', err);
+                this.messageSvc.add({ severity: 'error', summary: 'Error', detail: err.errMessage || 'Failed to delete carousel item.' });
+
+      }
+    });
+
 
   }
 
@@ -96,6 +119,7 @@ export class CarouselManageComponent implements OnInit {
 
 
   onSubmit() {
+    this.addFormSubmitVisivle = false;
 
     if (this.addForm.valid) {
       const formData = new FormData();
@@ -108,6 +132,7 @@ export class CarouselManageComponent implements OnInit {
       } else {
         // If image is not a File, do not append or handle accordingly
         alert('Please select a valid image file.');
+        this.addFormSubmitVisivle = true;
         return;
       }
       this.httpsvc.httpPost<any, FormData>(`${environment.ASPNET_API_URL + environment.addcarousel}`, formData).subscribe({
@@ -115,15 +140,21 @@ export class CarouselManageComponent implements OnInit {
           console.log('Carousel added successfully:', res);
           this.messageSvc.add({ severity: 'success', summary: 'Success', detail: 'Carousel added successfully!' });
           this.addForm.reset();
+          this.adminSvc.getCarouseldat();
           this.visible = false; // Close the dialog after submission
+          
         },
         error: (err) => {
           console.error('Error adding carousel:', err);
           this.messageSvc.add({ severity: 'error', summary: 'Error', detail: 'Failed to add carousel. Please check all fields and try again.' });
+        },
+        complete: () => {
+          this.addFormSubmitVisivle = true;
         }
       });
     } else {
       this.messageSvc.add({ severity: 'warn', summary: 'Warning', detail: 'Please fill in all required fields.' });
+      this.addFormSubmitVisivle = true;
     }
   }
 
@@ -173,6 +204,7 @@ export class CarouselManageComponent implements OnInit {
   );
 
   showDialog() {
+    this.addForm.reset();
     this.visible = true;
   }
   carouselItems: CarouselItem[] = [];
@@ -191,7 +223,24 @@ export class CarouselManageComponent implements OnInit {
     image: [null as File | null, Validators.required]
   });
 
-
+onMagicClick() {
+    this.showAiIcon = false;
+    const descGenerateBody: any = {
+      SystemMessage: environment.bannerDescSystemPrompt,
+      UserMessage: 'Banner URl : ' + this.addForm.controls.image.value + ', Banner Title: ' + this.addForm.controls.title.value
+    };
+    this.httpsvc.httpPost<any, any>(`${environment.ASPNET_API_URL + environment.generateText}`, descGenerateBody).subscribe({
+      next: (res) => {
+        console.log('AI Generated Description:', res);
+        this.addForm.patchValue({ description: res.data });
+        this.showAiIcon = true;
+      },
+      error: (err) => {
+        console.error('Error generating description:', err);
+        this.showAiIcon = true;
+      }
+    });
+}
   // carouselForm = this.fb.nonNullable.group({
   //   slide: this.fb.nonNullable.array([this.createBanner()
   //   ])

@@ -2,7 +2,7 @@
     <h4 class="card-title d-flex custom-SubHeading">
         Home Page Settings </h4>
     <p-divider />
-
+<p-toast></p-toast>
     <div class="card" style="background: none; border: none;">
         <div class="card-body">
             <div class="col-3 mb-2">
@@ -58,7 +58,7 @@
                                         <div style="flex: 0 0 55%;">
                                             <p-image styleClass="card-img-top" [src]="item.imageUrl" alt="Image"
                                                 [preview]="true"
-                                                [style]="{ height: '150px', width: '100%', objectFit: 'cover' }"
+                                                [style]="{ height: '150px', width: '100%',   }"
                                                 width="400" height="150" />
                                             <!-- <img [src]="item.imageUrl" class="card-img-top" alt="Image"
                                                 style="height: 100%; width: 100%; object-fit: cover;" /> -->
@@ -212,7 +212,7 @@
                     (change)="onFileSelected($event)" accept="image/png, image/jpeg">
                 <p-message severity="error"
                     *ngIf="addForm.controls.image.hasError('required') && addForm.controls.image.touched" size="small"
-                    variant="simple"> Email is required.
+                    variant="simple"> Image is required.
                 </p-message>
 
             </div>
@@ -225,7 +225,13 @@
                 </p-message>
             </div>
             <div class="mb-3">
-                <label class="form-label">Description</label>
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="form-label mb-0">Description</label>
+                    <button type="button" class="btn btn-link p-0" (click)="onMagicClick()" aria-label="Magic">
+                      <div  *ngIf="showAiIcon">  <i class="fa-solid fa-wand-magic-sparkles fa-beat"  title="Generate with AI"></i></div>
+                       <div *ngIf="!showAiIcon"> <i class="fa-solid fa-arrows-spin fa-spin"></i></div>
+                    </button>
+                </div>
                 <textarea class="form-control" id="carouselDescription" rows="3" formControlName="description"
                     name="description" placeholder="Enter description" required></textarea>
                 <p-message severity="error"
@@ -233,8 +239,7 @@
                     size="small" variant="simple"> Description is required.
                 </p-message>
             </div>
-            <p-toast></p-toast>
-            <button type="submit" class="btn btn-success w-100">Upload</button>
+            <button type="submit" [disabled]="!addFormSubmitVisivle" class="btn btn-success w-100">Upload</button>
 
         </form>
     </p-dialog>
