@@ -1,1 +1,167 @@
-<p>product-category-manage works!</p>
+<div class="container-fluid my-3">
+    <h4 class="card-title d-flex custom-SubHeading">
+        Manage Category</h4>
+    <p-divider />
+    <div class="card" style="background: none; border: none;">
+        <div class="card-body">
+            <div class="col-3 mb-2">
+                <button type="button" (click)="showAddCatDialog()" class="btn btn-outline-secondary">+ Add Category
+                </button>
+            </div> 
+        </div>  
+    </div> 
+</div>
+
+
+<div class="card flex justify-center">
+
+    <p-dialog [(visible)]="isAddProductError" [modal]="true" [style]="{ width: '30rem' }" [draggable]="false"
+        [resizable]="true" styleClass="custom-dialog" [showHeader]="true">
+
+        <ng-template #header class="">
+
+            <div class="inline-flex items-center justify-center text-shadow gap-0">
+                <div class="flex items-center gap-2 p-0 border-circle bg-primary-50 text-primary-500">
+
+                    <h5 class="m-0"><i class="fa-solid fa-layer-group text-xl"></i>Upload Carousel Banner</h5>
+                </div>
+            </div>
+        </ng-template>
+
+
+        <div class="dialog-content text-primary-400">
+            <form #categoryForm="ngForm" class="space-y-4">
+                <p class="text-primary mb-1 font-small text-center bg-primary-50 text-muted">
+                    <i class="fa-solid fa-info-circle mr-2 text-primary-500"></i>
+                    Create a new product category to organize your inventory effectively.
+                </p>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Category Name</label>
+                <input pInputText type="text" class="form-control" #name="ngModel" required [(ngModel)]="newCategory.name" name="name" placeholder="Enter name">
+                <p-message severity="error"
+                    *ngIf="name.hasError('required') && name.touched" size="small"
+                    variant="simple"> Category name is required.
+                </p-message>
+            </div>
+
+             <div class="mb-3">
+                <label class="form-label fw-bold">Description</label>
+                   <textarea  pInputText type="text" class="form-control" #Desc="ngModel" required 
+                [(ngModel)]="newCategory.description" name="Desc" placeholder="Enter Description" ></textarea>
+                 
+                <p-message severity="error"
+                    *ngIf="Desc.hasError('required') && Desc.touched" size="small"
+                    variant="simple"> Description is required.
+                </p-message>
+            </div>
+                <!-- <div class="field-group">
+                    <div class="p-float-label mb-4">
+                        <input pInputText id="categoryName" name="categoryName"
+                            class="w-full p-3 border-round-lg transition-all duration-300 hover:border-primary-300 focus:border-primary-500"
+                            autocomplete="off" required [(ngModel)]="newCategory.name" />
+                        <label for="categoryName" class="font-medium text-700">Category Name</label>
+                    </div>
+                </div> -->
+
+                <!-- <div class="field-group">
+                    <div class="p-float-label mb-4">
+                        <input pInputText id="categoryDescription" name="categoryDescription"
+                            class="w-full p-3 border-round-lg transition-all duration-300 hover:border-primary-300 focus:border-primary-500"
+                            autocomplete="off" [(ngModel)]="newCategory.description" />
+                        <label for="categoryDescription" class="font-medium text-700">Description</label>
+                    </div>
+                </div> -->
+
+                <div class="field-group">
+                    <label for="categoryThumbnail" class="block font-medium text-blacktext-700 mb-2">
+                        <i class="fa-solid fa-image mr-2 p-1"></i>Thumbnail Image
+                    </label>
+                    <div
+                        class="upload-container p-1 border-2 border-dashed border-300 border-round-lg text-center transition-all duration-300 hover:border-primary-300 cursor-pointer">
+                        <input type="file" id="categoryThumbnail" name="categoryThumbnail" class="hidden"
+                            accept="image/*" (change)="onThumbnailSelected($event)" #fileInput />
+                        <div (click)="fileInput.click()" class="upload-area">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-400 mb-2"></i>
+                            <p class="text-400 mb-0">Click to upload or drag and drop</p>
+                            <p class="text-200 text-sm">PNG, JPG or JPEG (max. 5MB)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced preview with animation -->
+                <div *ngIf="thumbnailPreview" class="preview-container mt-0 p-1 bg-gray-50 border-round-lg"
+                    style="animation: fadeInUp 0.3s ease-out;">
+                    <label class="block font-medium text-500 mb-1 ps-1">
+                        <i class="fa-solid fa-eye mr-2"></i>Preview
+                    </label>
+                    <div class="flex justify-content-center">
+                        <img [src]="thumbnailPreview" alt="Thumbnail Preview"
+                            class="border-round-lg shadow-2 transition-all duration-300 hover:shadow-4"
+                            style="max-width: 200px; max-height: 200px; object-fit: cover;" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <ng-template #footer>
+            <div class="flex text-center  ">
+                <!-- <p-button label="Cancel" icon="pi pi-times" [text]="true" severity="secondary" class="flex-1"
+                    styleClass="p-button-lg transition-all duration-300" (click)="isAddProductError=false" /> -->
+                <p-button label="Create Category" icon="pi pi-plus" severity="success" class="flex-1"
+                    styleClass="p-button-lg transition-all duration-300" [disabled]="!categoryForm.form.valid"
+                    (click)="AddProductCategory()" />
+            </div>
+        </ng-template>
+    </p-dialog>
+
+    <style>
+        .custom-dialog {
+            animation: slideInDown 0.3s ease-out;
+        }
+
+        .custom-dialog .p-dialog-content {
+            padding: 0 !important;
+        }
+
+        .field-group {
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .upload-container:hover {
+            background-color: var(--primary-50);
+        }
+
+        .preview-container {
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</div>
