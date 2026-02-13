@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core'; 
 import { BehaviorSubject, switchMap } from 'rxjs';
-import { CarouselItem } from '../Model/admin';
+import { CarouselItem, ProductCategoryItem } from '../Model/admin';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.production';
 import { ApiResponse } from '../Model/ApiRes';
@@ -16,6 +16,7 @@ export class AdminService {
   http = inject(HttpClient);
 
   CarouselSub$ = new BehaviorSubject<string>('');
+  ProductCategorySub$ =  new BehaviorSubject<string>('');
 
   getCarouseldata$ = this.CarouselSub$.pipe(
     switchMap(s => this.http.get<ApiResponse<CarouselItem[]>>(`${environment.ASPNET_API_URL + environment.getcarousel}`)
@@ -26,4 +27,14 @@ export class AdminService {
   getCarouseldat() {
     this.CarouselSub$.next('Admin');
   }
+
+  getProductCategory$ = this.ProductCategorySub$.pipe(
+    switchMap(s=> this.http.get<ApiResponse<ProductCategoryItem[]>>(`${environment.ASPNET_API_URL + environment.getProductCategory}`))
+  )
+
+  getProductCategory(){
+    this.ProductCategorySub$.next("Category");
+  }
+
+
 }

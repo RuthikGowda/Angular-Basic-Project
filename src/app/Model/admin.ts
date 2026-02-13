@@ -12,3 +12,10 @@ export interface CarouselUpload{
   description: string;
   image: File | null;
 }
+
+export interface ProductCategoryItem{
+  id: number;
+  title :  string;
+  description : string;
+  ImageUrl : string;
+}

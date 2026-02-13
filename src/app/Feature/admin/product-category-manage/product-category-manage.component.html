@@ -29,14 +29,14 @@
         </ng-template>
 
 
-        <div class="dialog-content text-primary-400">
+        <div class="dialog-content text-primary-400 field-group">
             <form #categoryForm="ngForm" class="space-y-4">
                 <p class="text-primary mb-1 font-small text-center bg-primary-50 text-muted">
                     <i class="fa-solid fa-info-circle mr-2 text-primary-500"></i>
                     Create a new product category to organize your inventory effectively.
                 </p>
 
-            <div class="mb-3">
+            <div class="mb-3 field-group">
                 <label class="form-label fw-bold">Category Name</label>
                 <input pInputText type="text" class="form-control" #name="ngModel" required [(ngModel)]="newCategory.name" name="name" placeholder="Enter name">
                 <p-message severity="error"
@@ -45,7 +45,7 @@
                 </p-message>
             </div>
 
-             <div class="mb-3">
+             <div class="mb-3 field-group">
                 <label class="form-label fw-bold">Description</label>
                    <textarea  pInputText type="text" class="form-control" #Desc="ngModel" required 
                 [(ngModel)]="newCategory.description" name="Desc" placeholder="Enter Description" ></textarea>
@@ -73,7 +73,7 @@
                     </div>
                 </div> -->
 
-                <div class="field-group">
+                <div class="field-group fw-bold">
                     <label for="categoryThumbnail" class="block font-medium text-blacktext-700 mb-2">
                         <i class="fa-solid fa-image mr-2 p-1"></i>Thumbnail Image
                     </label>
@@ -108,7 +108,7 @@
             <div class="flex text-center  ">
                 <!-- <p-button label="Cancel" icon="pi pi-times" [text]="true" severity="secondary" class="flex-1"
                     styleClass="p-button-lg transition-all duration-300" (click)="isAddProductError=false" /> -->
-                <p-button label="Create Category" icon="pi pi-plus" severity="success" class="flex-1"
+                <p-button label="Create Category" severity="success" class="flex-1"
                     styleClass="p-button-lg transition-all duration-300" [disabled]="!categoryForm.form.valid"
                     (click)="AddProductCategory()" />
             </div>
@@ -164,4 +164,96 @@
             display: none;
         }
     </style>
+</div>
+ 
+<div class="row">
+    <div *ngIf="ProgressBar" class="d-flex justify-content-center align-items-center w-100"
+        style="min-height: 200px;">
+        <p-progress-spinner ariaLabel="loading" />
+    </div>
+    <!-- <p-card [style]="{ width: '20rem', overflow: 'hidden' , padding: '0px'}">
+                        <ng-template #header>
+                            <p-image styleClass="card-img-top" [src]="item.imageUrl" alt="Image"
+                                [preview]="true"
+                                [style]="{ height: '150px', width: '100%', objectFit: 'cover' }" width="400"
+                                height="150" /> -->
+    <!-- <img alt="Card" class="card-img-top" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" /> -->
+    <!-- </ng-template>
+
+                        <ng-template [style]="{padding:'0px'}" #title> {{item.title}} </ng-template>
+                        <ng-template #subtitle> {{item.description}} </ng-template>
+                        <p #subtitle class="m-0 p-0 small text-muted"> Created Date:
+                            {{item.createdDate | date:'shortDate'}}</p>
+                        <p-toggleswitch pSize="small" />
+
+                        <ng-template #footer>
+
+                            <div class="flex justify-content-center items-center d-flex">
+                                <p-button label="Delete" severity="danger" class="w-full btnHover  me-4"
+                                    [outlined]="true" />
+                                <p-button label="Edit" (onClick)="editCarousel(item)" class="w-full btnHover ms-4 " />
+                            </div>
+                        </ng-template>
+                    </p-card> -->
+    <!-- <div class="col-md-12">
+        <div class="row">  -->
+    <ng-container *ngIf="CategoryUiData$| async as items">
+        <ng-container *ngIf="items.length>0; else noData">
+            <div class="row">
+                <div class="row g-3">
+                    <div *ngFor="let item of items"
+                        class="col-12 col-sm-6 col-md-4 d-flex justify-content-center card-with-speeddial"> 
+                        <!-- Container -->
+                        <div class="card card-hover shadow-sm border-0 position-relative"
+                            style="width: 100%; max-width: 20rem; height: 300px; display: flex; flex-direction: column; overflow: hidden;">
+
+
+
+
+                            <!-- Image Section -->
+                            <div style="flex: 0 0 55%;">
+                                <p-image styleClass="card-img-top" [src]="item.ImageUrl" alt="Image"
+                                    [preview]="true"
+                                    [style]="{ height: '150px', width: '100%',   }"
+                                    width="400" height="150" />
+                                <!-- <img [src]="item.imageUrl" class="card-img-top" alt="Image"
+                                    style="height: 100%; width: 100%; object-fit: cover;" /> -->
+                            </div>
+
+                            <!-- Card Body -->
+                            <div
+                                style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div class="card-body py-2 px-3">
+                                    <h5 class="card-title mb-1">{{ item.title }}</h5>
+                                    <h6 class="card-subtitle mb-1 text-muted small">{{ item.description }}
+                                    </h6>
+                                    <!-- <p class="card-text text-muted small mb-1">
+                                        Created Date: {{  | date:'shortDate' }}
+                                    </p> -->
+
+                                    <!-- Toggle Switch -->
+                                    <div class="form-check form-switch mt-2">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            [checked]="true"
+                                            
+                                            id="toggleSwitch-{{ item.id }}" name="switch" />
+                                      
+                                    </div>
+                                    <div class="speeddial">
+                                        <p-speeddial  [model]="getMenuItems(item)" [radius]="70" type="quarter-circle"
+                                            direction="up-left"
+                                            [style]="{ position: 'absolute', right: 0, bottom: 0 ,background: 'transparent' }" />
+                                    </div>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div>
+                </div> 
+            </div>
+        </ng-container>
+        <ng-template #noData>
+            <p>No carousel items found.</p>
+        </ng-template>
+
+    </ng-container>
 </div>
